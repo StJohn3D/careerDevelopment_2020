@@ -2,17 +2,29 @@ CREATE DATABASE todo_app;
 
 USE todo_app;
 
--- NOTE:
--- FOREIGN KEY, REFERENCES, ON DELETE CASCADE are all basically comments
--- So don't expect them to actually do anything.
-
 CREATE TABLE person
 (
   person_id INT PRIMARY KEY AUTO_INCREMENT,
   person_first_name VARCHAR(256),
   person_last_name VARCHAR(256),
-  person_name VARCHAR(55) NOT NULL,
+  person_username VARCHAR(55) NOT NULL,
   person_password VARCHAR(256) NOT NULL
+);
+
+INSERT INTO
+person(
+  person_id,
+  person_first_name,
+  person_last_name,
+  person_username,
+  person_password
+)
+VALUES(
+  1,
+  'John',
+  'Smith',
+  'defaultUser',
+  '1234'
 );
 
 CREATE TABLE email_address
@@ -24,6 +36,18 @@ CREATE TABLE email_address
   FOREIGN KEY (email_address_person_id)
     REFERENCES person(person_id)
     ON DELETE CASCADE
+);
+
+INSERT INTO
+email_address(
+  email_address_id,
+  email_address,
+  email_address_person_id
+)
+VALUES(
+  1,
+  'jsmith@mail.com',
+  1
 );
 
 CREATE TABLE todo_list
@@ -38,6 +62,20 @@ CREATE TABLE todo_list
     ON DELETE CASCADE
 );
 
+INSERT INTO
+todo_list(
+  todo_list_id,
+  todo_list_title,
+  todo_list_description,
+  todo_list_person_id
+)
+VALUES(
+  1,
+  'First Todo List',
+  'A starter todo list example.',
+  1
+);
+
 CREATE TABLE todo
 (
   todo_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -50,4 +88,22 @@ CREATE TABLE todo
   FOREIGN KEY (todo_todo_list_id)
     REFERENCES todo_list(todo_list_id)
     ON DELETE CASCADE
+);
+
+INSERT INTO
+todo(
+  todo_id,
+  todo_title,
+  todo_description,
+  todo_due_date,
+  todo_completed,
+  todo_todo_list_id
+)
+VALUES(
+  1,
+  'Buy eggs',
+  NULL,
+  NULL,
+  FALSE,
+  1
 );
