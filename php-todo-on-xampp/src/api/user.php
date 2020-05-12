@@ -3,16 +3,16 @@ require_once('db.php');
 
 // define("PASSWORD_DEFAULT", "1234");
 
-function get_user() {
+function get_user_by_id($userId) {
   $db = db_connect_open();
 
-  $query = "SELECT p.person_id as id, p.person_username as userName FROM person p";
+  $query = "SELECT p.person_username, p.person_first_name, p.person_last_name FROM person p WHERE p.person_id = $userId";
   $result = mysqli_query($db, $query);
 
   $rows = array();
   if(mysqli_num_rows($result) >= 1) {
     while($row = mysqli_fetch_array($result)){
-      $rows[] = (object)array('id'=>$row['id'], 'userName'=>$row['userName']);
+      $rows[] = (object)array('userName'=>$row['person_username'], 'firstName'=>$row['person_first_name'], 'lastName'=>$row['person_last_name']);
     }
   }
 
@@ -57,6 +57,7 @@ function user_access_key($userName, $email) {
 function user_authenticate() {
   if( isset($_COOKIE["userId"]) && isset($_COOKIE["accessKey"]) ) {
     echo "Welcome " . $_COOKIE["userId"] . "<br />";
+    get_user_by_id($_COOKIE["userId"]);
   }
   else {
     header('Location: '.$uri.'/todoapp/login.php/');
