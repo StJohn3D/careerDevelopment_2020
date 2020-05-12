@@ -13,19 +13,18 @@ CREATE TABLE person
 
 INSERT INTO
 person(
-  person_id,
   person_first_name,
   person_last_name,
   person_username,
   person_password
 )
 VALUES(
-  1,
   'John',
   'Smith',
   'defaultUser',
-  '1234'
+  '$2y$10$C46cknY2crY7jYST6bJseu12aJBNo1LpsSeA0D3ogSbw.Z5LEaaTm'
 );
+-- 1234
 
 CREATE TABLE email_address
 (
@@ -40,12 +39,10 @@ CREATE TABLE email_address
 
 INSERT INTO
 email_address(
-  email_address_id,
   email_address,
   email_address_person_id
 )
 VALUES(
-  1,
   'jsmith@mail.com',
   1
 );
@@ -64,13 +61,11 @@ CREATE TABLE todo_list
 
 INSERT INTO
 todo_list(
-  todo_list_id,
   todo_list_title,
   todo_list_description,
   todo_list_person_id
 )
 VALUES(
-  1,
   'First Todo List',
   'A starter todo list example.',
   1
@@ -92,7 +87,6 @@ CREATE TABLE todo
 
 INSERT INTO
 todo(
-  todo_id,
   todo_title,
   todo_description,
   todo_due_date,
@@ -100,7 +94,6 @@ todo(
   todo_todo_list_id
 )
 VALUES(
-  1,
   'Buy eggs',
   NULL,
   NULL,

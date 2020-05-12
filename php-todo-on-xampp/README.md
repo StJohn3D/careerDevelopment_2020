@@ -29,4 +29,4 @@
  - View the app
    - Run the XAMPP Control Panel
      - Make sure both Apache & MySQL are running - if not click start on them
-     - Navigate to http://localhost/todoapp/index.php
+     - Navigate to http://localhost/todoapp
