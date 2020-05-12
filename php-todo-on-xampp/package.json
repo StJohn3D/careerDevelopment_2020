@@ -1,0 +1,9 @@
+{
+  "name": "php-todo-on-xampp",
+  "scripts": {
+    "start": "node ./node-scripts/develop.js"
+  },
+  "dependencies": {
+    "fs-extra": "9.0.0"
+  }
+}
