@@ -16,6 +16,29 @@ $email = getFieldValue('email');
 $firstName = getFieldValue('first_name');
 $lastName = getFieldValue('last_name');
 
+function validationResponse($isValid=true, $errorMessage="") {
+  return (object)array('valid'=>$isValid, 'errorMessage'=>$errorMessage);
+}
+
+function rule_required($value) {
+  if ($value === "") {
+    return validationResponse(false, "Required");
+  }
+  return validationResponse();
+};
+
+function fieldValidator($fieldValue, $rulesArray) {
+  $res = validationResponse();
+  foreach ($rulesArray as $checkRule) {
+    if (!is_callable($checkRule)) continue;
+
+    $res = $checkRule($fieldValue);
+    
+    if (!$res->valid) break;
+  }
+  return $res;
+}
+
 function validatePassword($value) {
   $result = (object)array('valid'=>true, 'errorMessage'=>"");
 
@@ -58,8 +81,8 @@ function validatePassword($value) {
   return $result;
 }
 
-function validateUserName() {
-  
+function validateUserName($value) {
+  return fieldValidator($value, ["rule_required"]);
 }
 
 ?>

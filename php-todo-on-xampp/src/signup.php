@@ -1,5 +1,6 @@
 <?php
   require_once('./lib/fieldValidations.php');
+  $userNameState = validateUserName($userName);
   $passwordState = (object)array('valid'=>true, 'errorMessage'=>"");
   $passwordState = validatePassword("AAA");
 ?>
@@ -17,7 +18,9 @@
       <h1>Sign Up</h1>
       <form method="post" action="signup.php">
         <div class="form-control">
-          <label for="user_name">User Name</label>
+          <label for="user_name">User Name<?php
+            if(!$userNameState->valid) { echo ": <b>$userNameState->errorMessage</b>"; }
+          ?></label>
           <input type="text" name="user_name" id="user_name" required aria-required="true" maxlength="55"
             value="<?php echo $userName; ?>"
           />
