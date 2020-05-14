@@ -9,6 +9,13 @@ function getFieldValue($fieldName) {
   }
 }
 
+$userName = getFieldValue('user_name');
+$password = getFieldValue('password');
+$passwordConfirm = getFieldValue('password_confirm');
+$email = getFieldValue('email');
+$firstName = getFieldValue('first_name');
+$lastName = getFieldValue('last_name');
+
 function validatePassword($value) {
   $result = (object)array('valid'=>true, 'errorMessage'=>"");
 
@@ -49,6 +56,10 @@ function validatePassword($value) {
   }
   
   return $result;
+}
+
+function validateUserName() {
+  
 }
 
 ?>

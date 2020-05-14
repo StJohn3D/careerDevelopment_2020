@@ -17,28 +17,42 @@
       <h1>Sign Up</h1>
       <form method="post" action="signup.php">
         <div class="form-control">
-          <label for="userName">User Name</label>
-          <input type="text" name="userName" id="userName" required aria-required="true" maxlength="55" value="<?php echo getFieldValue('userName') ?>"/>
+          <label for="user_name">User Name</label>
+          <input type="text" name="user_name" id="user_name" required aria-required="true" maxlength="55"
+            value="<?php echo $userName; ?>"
+          />
         </div>
         <div class="form-control">
           <label for="password">Password</label>
-          <input type="password" name="password" id="password" required aria-required="true" minlength="4" maxlength="256" value="<?php echo getFieldValue('password') ?>"/>
+          <input type="password" name="password" id="password" required aria-required="true" minlength="4" maxlength="256"
+            value="<?php echo $password; ?>"
+          />
         </div>
         <div class="form-control">
-          <label for="password_confirm">Confirm Password <?php if(!$passwordState->valid) { echo ": <b>$passwordState->errorMessage</b>"; } ?></label>
-          <input type="password" name="password_confirm" id="password_confirm" required aria-required="true" minlength="4" maxlength="256" value="<?php echo getFieldValue('password_confirm') ?>"/>
+          <label for="password_confirm">Confirm Password
+            <?php if(!$passwordState->valid) { echo ": <b>$passwordState->errorMessage</b>"; } ?>
+          </label>
+          <input type="password" name="password_confirm" id="password_confirm" required aria-required="true" minlength="4" maxlength="256"
+            value="<?php echo $passwordConfirm; ?>"
+          />
         </div>
         <div class="form-control">
           <label for="email">Email</label>
-          <input type="email" name="email" id="email" required aria-required="true" maxlength="256" value="<?php echo getFieldValue('email') ?>"/>
+          <input type="email" name="email" id="email" required aria-required="true" maxlength="256"
+            value="<?php echo $email; ?>"
+          />
         </div>
         <div class="form-control">
-          <label for="firstName">First Name</label>
-          <input type="text" name="firstName" id="firstName" aria-required="false" maxlength="256" value="<?php echo getFieldValue('firstName') ?>"/>
+          <label for="first_name">First Name</label>
+          <input type="text" name="first_name" id="first_name" aria-required="false" maxlength="256"
+            value="<?php echo $firstName; ?>"
+          />
         </div>
         <div class="form-control">
-          <label for="lastName">Last Name</label>
-          <input type="text" name="lastName" id="lastName" aria-required="false" maxlength="256" value="<?php echo getFieldValue('lastName') ?>"/>
+          <label for="last_name">Last Name</label>
+          <input type="text" name="last_name" id="last_name" aria-required="false" maxlength="256"
+            value="<?php echo $lastName; ?>"
+          />
         </div>
         <input type="submit" name="submit" value="Sign Up"/>
       </form>
@@ -54,14 +68,7 @@
 require_once('./api/user.php');
 
 if(isset($_POST['submit'])) {
-  $password = $_POST['password'];
-  $password_confirm = $_POST['password_confirm'];
-  if ($password === $password_confirm) {
-    $userName = $_POST['userName'];
-    $email = $_POST['email'];
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-  
+  if ($password === $passwordConfirm) {
     $userId = user_add($userName, $password, $email, $firstName, $lastName);
   
     if ($userId > -1) {
