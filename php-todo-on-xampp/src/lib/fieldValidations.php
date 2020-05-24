@@ -27,13 +27,28 @@ function rule_required($value) {
   return validationResponse();
 };
 
+function rule_minLength($value, $length) {
+  if (!stringHasMinLength($value, $length)) {
+    return validationResponse(false, "Too short!");
+  }
+  return validationResponse();
+}
+
 function fieldValidator($fieldValue, $rulesArray) {
   $res = validationResponse();
+  
   foreach ($rulesArray as $checkRule) {
-    if (!is_callable($checkRule)) continue;
-
-    $res = $checkRule($fieldValue);
-    
+    if (is_array($checkRule)) {
+      $ruleName = array_shift($checkRule);
+      if (is_callable($ruleName)) {
+        $ruleArgs = $checkRule;
+        array_unshift($ruleArgs, $fieldValue);
+        $res = call_user_func_array($ruleName, $ruleArgs);
+      }
+    } else {
+      if (!is_callable($checkRule)) continue;
+      $res = $checkRule($fieldValue);
+    }
     if (!$res->valid) break;
   }
   return $res;
@@ -82,7 +97,10 @@ function validatePassword($value) {
 }
 
 function validateUserName($value) {
-  return fieldValidator($value, ["rule_required"]);
+  return fieldValidator($value, [
+    "rule_required",
+    ["rule_minLength", 4]
+  ]);
 }
 
 ?>
