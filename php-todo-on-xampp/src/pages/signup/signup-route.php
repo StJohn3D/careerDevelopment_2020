@@ -1,8 +1,5 @@
 <?php
-  require_once('./lib/fieldValidations.php');
-  $userNameState = validateUserName($userName);
-  $passwordState = (object)array('valid'=>true, 'errorMessage'=>"");
-  $passwordState = validatePassword("AAA");
+  require_once('signup-ctrl.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,21 +64,3 @@
   </main>
 </body>
 </html>
-<?php
-require_once('./api/user.php');
-
-if(isset($_POST['submit'])) {
-  if ($password === $passwordConfirm) {
-    $userId = user_add($userName, $password, $email, $firstName, $lastName);
-  
-    if ($userId > -1) {
-      $timeToExpire = time() + (60 * 60); //60 seconds * 60 minutes = 1 hour
-      $accessKey = user_access_key($userName, $email);
-      setcookie("userId", $userId, $timeToExpire, "/", "", 0);
-      setcookie("accessKey", $accessKey, $timeToExpire, "/", "", 0);
-      header('Location: '.$uri.'/todoapp/index.php/');
-      exit;
-    }
-  }
-}
-?>
