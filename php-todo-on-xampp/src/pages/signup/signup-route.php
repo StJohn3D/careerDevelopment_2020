@@ -18,21 +18,26 @@
           <label for="user_name">User Name<?php
             if(!$userNameState->valid) { echo ": <b>$userNameState->errorMessage</b>"; }
           ?></label>
-          <input type="text" name="user_name" id="user_name" required aria-required="true" maxlength="55"
+          <input type="text" name="user_name" id="user_name"
+            required aria-required="true" minlength="4" maxlength="20"
             value="<?php echo $userName; ?>"
           />
         </div>
         <div class="form-control">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" required aria-required="true" minlength="4" maxlength="256"
+          <label for="password">Password<?php
+            if(!$passwordState->valid) { echo ": <b>$passwordState->errorMessage</b>"; }
+          ?></label>
+          <input type="password" name="password" id="password"
+            required aria-required="true" minlength="4" maxlength="256"
             value="<?php echo $password; ?>"
           />
         </div>
         <div class="form-control">
           <label for="password_confirm">Confirm Password
-            <?php if(!$passwordState->valid) { echo ": <b>$passwordState->errorMessage</b>"; } ?>
+            
           </label>
-          <input type="password" name="password_confirm" id="password_confirm" required aria-required="true" minlength="4" maxlength="256"
+          <input type="password" name="password_confirm" id="password_confirm"
+            required aria-required="true" minlength="4" maxlength="256"
             value="<?php echo $passwordConfirm; ?>"
           />
         </div>

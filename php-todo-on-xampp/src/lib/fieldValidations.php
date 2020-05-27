@@ -47,4 +47,39 @@ function rule_minLength($value, $length) {
   return validationResponse();
 }
 
+function rule_maxLength($value, $length) {
+  if (!stringHasMaxLength($value, $length)) {
+    return validationResponse(false, "Too long!");
+  }
+  return validationResponse();
+}
+
+function rule_includesCaps($value) {
+  if (!stringIncludesCapitalLetters($value)) {
+    return validationResponse(false, "Must have at least one capital letter");
+  }
+  return validationResponse();
+}
+
+function rule_includesLower($value) {
+  if (!stringIncludesLowercaseLetters($value)) {
+    return validationResponse(false, "Must have at least one lowercase letter");
+  }
+  return validationResponse();
+}
+
+function rule_includesNumbers($value) {
+  if (!stringIncludesNumbers($value)) {
+    return validationResponse(false, "Must have at least one number");
+  }
+  return validationResponse();
+}
+
+function rule_includesSpecial($value) {
+  if (!stringIncludesSpecialCharacters($value)) {
+    return validationResponse(false, "Must have at least one special character");
+  }
+  return validationResponse();
+}
+
 ?>

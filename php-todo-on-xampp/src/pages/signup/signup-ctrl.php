@@ -6,50 +6,21 @@ require_once('./lib/fieldValidations.php');
 function validateUserName($value) {
   return fieldValidator($value, [
     "rule_required",
-    ["rule_minLength", 4]
+    ["rule_minLength", 4],
+    ["rule_maxLength", 20]
   ]);
 }
 
 function validatePassword($value) {
-  $result = (object)array('valid'=>true, 'errorMessage'=>"");
-
-  if ($value === "") {
-    $result->valid = false;
-    $result->errorMessage = "Required";
-    return $result;
-  }
-
-  if (!stringHasMinLength($value, 4)) {
-    $result->valid = false;
-    $result->errorMessage = "Too short!";
-  }
-
-  if (!stringHasMaxLength($value, 256)) {
-    $result->valid = false;
-    $result->errorMessage = "Too long!";
-  }
-
-  if (!stringIncludesCapitalLetters($value)) {
-    $result->valid = false;
-    $result->errorMessage = "Must have at least one capital letter";
-  }
-
-  if (!stringIncludesLowercaseLetters($value)) {
-    $result->valid = false;
-    $result->errorMessage = "Must have at least one lowercase letter";
-  }
-
-  if (!stringIncludesNumbers($value)) {
-    $result->valid = false;
-    $result->errorMessage = "Must have at least one number";
-  }
-
-  if (!stringIncludesSpecialCharacters($value)) {
-    $result->valid = false;
-    $result->errorMessage = "Must have at least one special character";
-  }
-  
-  return $result;
+  return fieldValidator($value, [
+    "rule_required",
+    ["rule_minLength", 4],
+    ["rule_maxLength", 256],
+    "rule_includesCaps",
+    "rule_includesLower",
+    "rule_includesNumbers",
+    "rule_includesSpecial"
+  ]);
 }
 // #endregion
 
@@ -61,8 +32,7 @@ $firstName = getFieldValue('first_name');
 $lastName = getFieldValue('last_name');
 
 $userNameState = validateUserName($userName);
-$passwordState = (object)array('valid'=>true, 'errorMessage'=>"");
-$passwordState = validatePassword("AAA");
+$passwordState = validatePassword($password);
 
 
 if(isset($_POST['submit'])) {
