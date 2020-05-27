@@ -1,28 +1,7 @@
 <?php
 require_once('./api/user.php');
-require_once('./lib/fieldValidations.php');
-
-// #region Form Validation Functions
-function validateUserName($value) {
-  return fieldValidator($value, [
-    "rule_required",
-    ["rule_minLength", 4],
-    ["rule_maxLength", 20]
-  ]);
-}
-
-function validatePassword($value) {
-  return fieldValidator($value, [
-    "rule_required",
-    ["rule_minLength", 4],
-    ["rule_maxLength", 256],
-    "rule_includesCaps",
-    "rule_includesLower",
-    "rule_includesNumbers",
-    "rule_includesSpecial"
-  ]);
-}
-// #endregion
+require_once('./lib/fieldHelpers.php');
+require_once('signup-formValidators.php');
 
 $userName = getFieldValue('user_name');
 $password = getFieldValue('password');
@@ -33,10 +12,13 @@ $lastName = getFieldValue('last_name');
 
 $userNameState = validateUserName($userName);
 $passwordState = validatePassword($password);
-
+$passwordConfirmState = validatePasswordConfirm($passwordConfirm, $password);
+$emailState = validateEmail($email);
+$firstNameState = validateFirstName($firstName);
+$lastNameState = validateLastName($lastName);
 
 if(isset($_POST['submit'])) {
-  if ($password === $passwordConfirm) {
+  if (false) {
     $userId = user_add($userName, $password, $email, $firstName, $lastName);
   
     if ($userId > -1) {

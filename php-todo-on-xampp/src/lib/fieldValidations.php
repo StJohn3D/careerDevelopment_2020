@@ -1,14 +1,6 @@
 <?php
 require_once('./lib/stringTests.php');
 
-function getFieldValue($fieldName) {
-  if(isset($_POST[$fieldName])) {
-    return $_POST[$fieldName];
-  } else {
-    return "";
-  }
-}
-
 function validationResponse($isValid=true, $errorMessage="") {
   return (object)array('valid'=>$isValid, 'errorMessage'=>$errorMessage);
 }
@@ -82,4 +74,10 @@ function rule_includesSpecial($value) {
   return validationResponse();
 }
 
+function rule_isEmail($value) {
+  if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+    return validationResponse(false, "Must be a valid email");
+  }
+  return validationResponse();
+}
 ?>

@@ -19,7 +19,7 @@
             if(!$userNameState->valid) { echo ": <b>$userNameState->errorMessage</b>"; }
           ?></label>
           <input type="text" name="user_name" id="user_name"
-            required aria-required="true" minlength="4" maxlength="20"
+            required aria-required="true" minlength="4" maxlength="55"
             value="<?php echo $userName; ?>"
           />
         </div>
@@ -33,29 +33,38 @@
           />
         </div>
         <div class="form-control">
-          <label for="password_confirm">Confirm Password
-            
-          </label>
+          <label for="password_confirm">Confirm Password<?php
+            if(!$passwordConfirmState->valid) { echo ": <b>$passwordConfirmState->errorMessage</b>"; }
+          ?></label>
           <input type="password" name="password_confirm" id="password_confirm"
             required aria-required="true" minlength="4" maxlength="256"
             value="<?php echo $passwordConfirm; ?>"
           />
         </div>
         <div class="form-control">
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" required aria-required="true" maxlength="256"
+          <label for="email">Email<?php
+            if(!$emailState->valid) { echo ": <b>$emailState->errorMessage</b>"; }
+          ?></label>
+          <input type="email" name="email" id="email"
+            required aria-required="true" maxlength="256"
             value="<?php echo $email; ?>"
           />
         </div>
         <div class="form-control">
-          <label for="first_name">First Name</label>
-          <input type="text" name="first_name" id="first_name" aria-required="false" maxlength="256"
+          <label for="first_name">First Name<?php
+            if(!$firstNameState->valid) { echo ": <b>$firstNameState->errorMessage</b>"; }
+          ?></label>
+          <input type="text" name="first_name" id="first_name"
+            aria-required="false" maxlength="256"
             value="<?php echo $firstName; ?>"
           />
         </div>
         <div class="form-control">
-          <label for="last_name">Last Name</label>
-          <input type="text" name="last_name" id="last_name" aria-required="false" maxlength="256"
+          <label for="last_name">Last Name<?php
+            if(!$lastNameState->valid) { echo ": <b>$lastNameState->errorMessage</b>"; }
+          ?></label>
+          <input type="text" name="last_name" id="last_name"
+            aria-required="false" maxlength="256"
             value="<?php echo $lastName; ?>"
           />
         </div>
