@@ -17,18 +17,25 @@ $emailState = validateEmail($email);
 $firstNameState = validateFirstName($firstName);
 $lastNameState = validateLastName($lastName);
 
-if(isset($_POST['submit'])) {
-  if (false) {
-    $userId = user_add($userName, $password, $email, $firstName, $lastName);
-  
-    if ($userId > -1) {
-      $timeToExpire = time() + (60 * 60); //60 seconds * 60 minutes = 1 hour
-      $accessKey = user_access_key($userName, $email);
-      setcookie("userId", $userId, $timeToExpire, "/", "", 0);
-      setcookie("accessKey", $accessKey, $timeToExpire, "/", "", 0);
-      header('Location: '.$uri.'/todoapp/index.php/');
-      exit;
-    }
+$formIsValid =
+  $userNameState->valid &&
+  $passwordState->valid &&
+  $passwordConfirmState->valid &&
+  $emailState->valid &&
+  $firstNameState->valid &&
+  $lastNameState->valid
+;
+
+if (isset($_POST['submit']) && $formIsValid) {
+  $userId = user_add($userName, $password, $email, $firstName, $lastName);
+
+  if ($userId > -1) {
+    $timeToExpire = time() + (60 * 60); //60 seconds * 60 minutes = 1 hour
+    $accessKey = user_access_key($userName, $email);
+    setcookie("userId", $userId, $timeToExpire, "/", "", 0);
+    setcookie("accessKey", $accessKey, $timeToExpire, "/", "", 0);
+    header('Location: '.$uri.'/todoapp/index.php/');
+    exit;
   }
 }
 ?>
