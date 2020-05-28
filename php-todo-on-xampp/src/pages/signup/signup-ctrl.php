@@ -1,5 +1,5 @@
 <?php
-require_once('./api/user.php');
+require_once('./api/User.php');
 require_once('./lib/fieldHelpers.php');
 require_once('signup-formValidators.php');
 
@@ -27,11 +27,11 @@ $formIsValid =
 ;
 
 if (isset($_POST['submit']) && $formIsValid) {
-  $userId = user_add($userName, $password, $email, $firstName, $lastName);
+  $userId = User::add($userName, $password, $email, $firstName, $lastName);
 
   if ($userId > -1) {
     $timeToExpire = time() + (60 * 60); //60 seconds * 60 minutes = 1 hour
-    $accessKey = user_access_key($userName, $email);
+    $accessKey = User::accessKey($userName, $email);
     setcookie("userId", $userId, $timeToExpire, "/", "", 0);
     setcookie("accessKey", $accessKey, $timeToExpire, "/", "", 0);
     header('Location: '.$uri.'/todoapp/index.php/');

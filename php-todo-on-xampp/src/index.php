@@ -9,8 +9,8 @@
   <?php
     require_once('./api/secure.php');
     force_https_on_prod();
-    require_once('./api/user.php');
-    user_authenticate();
+    require_once('./api/User.php');
+    User::authenticate();
   ?>
 </body>
 </html>
