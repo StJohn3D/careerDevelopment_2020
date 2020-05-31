@@ -1,10 +1,21 @@
 <?php
+require_once('./db/LoginAttempt.php');
 require_once('./db/Person.php');
 require_once('./db/Email.php');
 
 class User {
-  public static function login($email, $password) {
+  public static function login($userName, $password) {
+    $ipAddress = $_SERVER['REMOTE_ADDR'];
+    $loginAttempt = new LoginAttempt($ipAddress);
 
+    if ($loginAttempt->timeStamp === null) {
+      echo "First Attempt<br/>";
+      // Good place to send an email about new login from unknown device
+    } else {
+      echo "attempt: $loginAttempt->failedCount <br/>";
+    }
+    $loginAttempt->set(false);
+    return false;
   }
   
   public static function add($userName, $password, $email, $firstName, $lastName) {

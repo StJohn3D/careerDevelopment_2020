@@ -100,3 +100,10 @@ VALUES(
   FALSE,
   1
 );
+
+CREATE TABLE login_attempt
+(
+  ip_address VARCHAR(45) PRIMARY KEY NOT NULL, -- special IPv6 notation for IPv4 addresses can be up to 45 characters
+  failed_count INT NOT NULL,
+  time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

@@ -1,3 +1,6 @@
+<?php
+  require_once('login-ctrl.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,16 +17,27 @@
     </section>
     <section>
       <h1>Login</h1>
+      <?php if($invalidLogin) { echo "<p class=\"invalid-message\">Invalid User Name or Password</p>"; } ?>
       <form method="post" action="login.php">
         <div class="form-control">
-          <label for="userName">User Name</label>
-          <input type="text" name="userName" id="userName" required aria-required="true" maxlength="55"/>
+          <label for="user_name">User Name<?php
+            if(!$userNameState->valid) { echo ": <b>$userNameState->errorMessage</b>"; }
+          ?></label>
+          <input type="text" name="user_name" id="user_name"
+            required aria-required="true" maxlength="55"
+            value="<?php echo $userName; ?>"
+          />
         </div>
         <div class="form-control">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" required aria-required="true" maxlength="256" />
+          <label for="password">Password<?php
+            if(!$passwordState->valid) { echo ": <b>$passwordState->errorMessage</b>"; }
+          ?></label>
+          <input type="password" name="password" id="password"
+            required aria-required="true" maxlength="256"
+            value="<?php echo $password; ?>"
+          />
         </div>
-        <button type="submit">Login</button>
+        <input type="submit" name="submit" value="Login"/>
       </form>
     </section>
   </main>
