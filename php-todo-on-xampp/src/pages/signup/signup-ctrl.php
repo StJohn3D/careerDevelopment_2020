@@ -30,10 +30,7 @@ if (isset($_POST['submit']) && $formIsValid) {
   $userId = User::add($userName, $password, $email, $firstName, $lastName);
 
   if ($userId > -1) {
-    $timeToExpire = time() + (60 * 60); //60 seconds * 60 minutes = 1 hour
-    $accessKey = User::accessKey($userName, $email);
-    setcookie("userId", $userId, $timeToExpire, "/", "", 0);
-    setcookie("accessKey", $accessKey, $timeToExpire, "/", "", 0);
+    User::login($userName, $password);
     header('Location: '.$uri.'/todoapp/index.php/');
     exit;
   }
