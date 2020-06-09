@@ -1,10 +1,10 @@
 <?php
 require_once('./lib/fieldValidations.php');
 
-function validateUserName($value) {
+function validateUserNameOrEmail($value) {
   return fieldValidator($value, [
     "rule_required",
-    ["rule_maxLength", 55]
+    ["rule_maxLength", 256]
   ]);
 }
 

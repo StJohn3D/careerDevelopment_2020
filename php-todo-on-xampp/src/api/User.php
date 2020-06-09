@@ -23,11 +23,17 @@ class User {
     // TODO
   }
 
-  public static function login($userName, $password) {
+  public static function login($userNameOrEmail, $password) {
     $ipAddress = $_SERVER['REMOTE_ADDR'];
     $loginAttempt = new LoginAttempt($ipAddress);
 
-    $personData = Person::getByUserName($userName);
+    $personData = null;
+    if (filter_var($userNameOrEmail, FILTER_VALIDATE_EMAIL)) {
+      $personData = Person::getByEmailAddress($userNameOrEmail);
+    } else {
+      $personData = Person::getByUserName($userNameOrEmail);
+    }
+
     if ($personData !== null) {
       if (password_verify($password, $personData->password)) {
         if ($loginAttempt->timeStamp === null) {

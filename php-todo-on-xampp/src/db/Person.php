@@ -91,6 +91,48 @@ class Person {
 
     return $personData;
   }
+
+  public static function getByEmailAddress($emailAddress) {
+    $todoDb = todo_db_connect();
+
+    $query = "SELECT
+      p.person_id,
+      p.person_username,
+      p.person_password,
+      p.person_first_name,
+      p.person_last_name
+      FROM
+      person p
+      INNER JOIN
+      email_address e
+      ON p.person_id = e.email_address_person_id
+      WHERE e.email_address = \"$emailAddress\""
+    ;
+    
+    $result = $todoDb->query($query);
+    
+    $personData = null;
+
+    if ($result->num_rows === 1) {
+      $row = $result->fetch_array(MYSQLI_ASSOC);
+
+      $personData = new PersonDTO(
+        $row['person_id'],
+        $row['person_username'],
+        $row['person_password'],
+        $row['person_first_name'],
+        $row['person_last_name']
+      );
+    }
+
+    /* free result set */
+    $result->free();
+
+    /* close connection */
+    $todoDb->close();
+
+    return $personData;
+  }
   
   public static function add($userName, $password, $firstName, $lastName) {
     $todoDb = todo_db_connect();

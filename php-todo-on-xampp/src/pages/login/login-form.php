@@ -20,12 +20,12 @@
       <?php if($invalidLogin) { echo "<p class=\"invalid-message\">Invalid User Name or Password</p>"; } ?>
       <form method="post" action="login.php">
         <div class="form-control">
-          <label for="user_name">User Name<?php
-            if(!$userNameState->valid) { echo ": <b>$userNameState->errorMessage</b>"; }
+          <label for="user_name_or_email">User Name or Email<?php
+            if(!$userNameOrEmailState->valid) { echo ": <b>$userNameOrEmailState->errorMessage</b>"; }
           ?></label>
-          <input type="text" name="user_name" id="user_name"
+          <input type="text" name="user_name_or_email" id="user_name_or_email"
             required aria-required="true" maxlength="55"
-            value="<?php echo $userName; ?>"
+            value="<?php echo $userNameOrEmail; ?>"
           />
         </div>
         <div class="form-control">
