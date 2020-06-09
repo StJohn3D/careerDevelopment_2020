@@ -1,11 +1,21 @@
 <?php
 require_once('./lib/fieldValidations.php');
+require_once('./db/Person.php');
+
+function rule_userNameIsUnique($value) {
+  if (Person::userNameExists($value)) {
+    // TODO Let the user choose from some auto-generated options with random numbers etc.. to make it unique.
+    return validationResponse(false, "Sorry, that user name is already taken. Please try again with a different user name.");
+  }
+  return validationResponse();
+}
 
 function validateUserName($value) {
   return fieldValidator($value, [
     "rule_required",
     ["rule_minLength", 4],
-    ["rule_maxLength", 55]
+    ["rule_maxLength", 55],
+    "rule_userNameIsUnique"
   ]);
 }
 

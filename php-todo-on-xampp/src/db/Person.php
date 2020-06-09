@@ -165,6 +165,29 @@ class Person {
   
     return $id;
   }
+
+  public static function userNameExists($userName) {
+    $todoDb = todo_db_connect();
+  
+    $query = "SELECT
+      p.person_username
+      FROM person p
+      WHERE p.person_username = \"$userName\""
+    ;
+  
+    $result = $todoDb->query($query);
+
+
+    $userNameExists = $result->num_rows === 1;
+  
+    /* free result set */
+    $result->free();
+  
+    /* close connection */
+    $todoDb->close();
+
+    return $userNameExists;
+  }
 }
 
 ?>
