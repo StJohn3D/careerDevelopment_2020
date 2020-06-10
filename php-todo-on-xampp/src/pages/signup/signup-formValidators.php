@@ -45,11 +45,19 @@ function validatePasswordConfirm($value, $_password) {
   ]);
 }
 
+function rule_emailIsUnique($value) {
+  if (Email::emailExists($value)) {
+    return validationResponse(false, "An account is already registered to this email. Please either use the [Login In] link below, or try a different email.");
+  }
+  return validationResponse();
+}
+
 function validateEmail($value) {
   return fieldValidator($value, [
     "rule_required",
     "rule_isEmail",
     ["rule_maxLength", 256],
+    "rule_emailIsUnique"
   ]);
 }
 

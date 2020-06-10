@@ -26,6 +26,29 @@ class Email {
   
     return $id;
   }
+
+  public static function emailExists($email) {
+    $todoDb = todo_db_connect();
+  
+    $query = "SELECT
+      e.email_address
+      FROM email_address e
+      WHERE e.email_address = \"$email\""
+    ;
+  
+    $result = $todoDb->query($query);
+
+
+    $emailExists = $result->num_rows === 1;
+  
+    /* free result set */
+    $result->free();
+  
+    /* close connection */
+    $todoDb->close();
+
+    return $emailExists;
+  }
 }
 
 ?>
