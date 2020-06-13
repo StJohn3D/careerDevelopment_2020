@@ -10,7 +10,7 @@
     require_once('./api/secure.php');
     force_https_on_prod();
     require_once('./api/User.php');
-    User::authenticate();
+    $userData = User::authenticate();
     require_once('./pages/home/home-route.php');
   ?>
 </body>

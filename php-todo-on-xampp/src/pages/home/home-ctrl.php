@@ -1,3 +1,5 @@
 <?php
-// Stuff goes here
+  if(isset($_POST['logout'])) {
+    User::logout();
+  }
 ?>

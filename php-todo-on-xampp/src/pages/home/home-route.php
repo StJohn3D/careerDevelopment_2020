@@ -12,15 +12,27 @@
   <main>
     <header>
       <h1>ToDo App</h1>
-      <span>
-        UserName
-      </span>
-      <button>
-        Logout
-      </button>
+      <form method="post">
+        <label>
+          <?php echo $userData->userName ?>
+        </label>
+        <input type="submit" name="logout" value="Logout" />
+      <form method="post">
     </header>
     <section>
-      <h1>My ToDo lists</h1>
+      <h1><?php
+        if ($userData->firstName !== null) {
+          echo $userData->firstName;
+          if ($userData->lastName !== null) {
+            echo " $userData->lastName";
+          }
+          echo "'s ";
+        } else {
+          echo "My ";
+        }
+      ?>
+        ToDo lists
+      </h1>
       <article className="todo_card">
         <h1>Todo Title Here<h1>
         <span>#/#<span>

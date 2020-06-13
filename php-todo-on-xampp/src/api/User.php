@@ -16,11 +16,14 @@ class User {
   }
 
   private static function clearCookies() {
-    // TODO
+    $timeToExpire = time() - 60; //60 seconds in the past will invalidate and remove the cookies
+    setcookie("userId", $userId, $timeToExpire, "/", "", 0);
+    setcookie("accessKey", $encryptedAccessKey, $timeToExpire, "/", "", 0);
   }
 
   public static function logout() {
-    // TODO
+    User::clearCookies();
+    header('Location: '.$uri.'/todoapp/login.php/');
   }
 
   public static function login($userNameOrEmail, $password) {
@@ -67,7 +70,7 @@ class User {
       if (password_verify(User::accessKey($personData->userName, $personData->id), $_COOKIE["accessKey"])) {
         // Reset the cookies to extend the session
         User::setCookies($personData->userName, $personData->id);
-        return true;
+        return $personData;
       }
     }
     header('Location: '.$uri.'/todoapp/login.php/');
