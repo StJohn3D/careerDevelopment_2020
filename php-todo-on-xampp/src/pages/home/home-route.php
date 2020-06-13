@@ -17,27 +17,31 @@
           <?php echo $userData->userName ?>
         </label>
         <input type="submit" name="logout" value="Logout" />
-      <form method="post">
+      </form>
     </header>
     <section>
-      <h1><?php
-        if ($userData->firstName !== null) {
-          echo $userData->firstName;
-          if ($userData->lastName !== null) {
-            echo " $userData->lastName";
-          }
-          echo "'s ";
-        } else {
-          echo "My ";
+      <h1><?php echoHeaderTitle($userData) ?></h1>
+      <form method="post">
+        <input type="submit" name="new-todo" value="Create new ToDo list" />
+      </form>
+      <hr/>
+      <?php
+        foreach ($todoListData as $todoData) {
+          echo <<<XML
+          <article className="todo_card" style="border: 1px solid; padding: 16px;">
+            <header>
+              <h1>$todoData->title<h1>
+              <aside>$todoData->numCompleted/$todoData->numTodos<aside>
+            </header>
+            <p>$todoData->description</p>
+            <form method="post">
+              <input type="hidden" id="$todoData->id" name="Key" value="$todoData->id">
+              <input type="submit" name="edit" value="Edit" />
+            </form>
+          </article>
+        XML;
         }
       ?>
-        ToDo lists
-      </h1>
-      <article className="todo_card">
-        <h1>Todo Title Here<h1>
-        <span>#/#<span>
-        <p>Todo Description here</p>
-      </article>
     </section>
   </main>
 </body>
