@@ -21,9 +21,7 @@
     </header>
     <section>
       <h1><?php echoHeaderTitle($userData) ?></h1>
-      <form method="post">
-        <input type="submit" name="new-todo" value="Create new ToDo list" />
-      </form>
+      <a href="/todoapp/create.php">Create new ToDo list</a>
       <hr/>
       <?php
         foreach ($todoListData as $todoData) {
@@ -34,10 +32,7 @@
               <aside>$todoData->numCompleted/$todoData->numTodos<aside>
             </header>
             <p>$todoData->description</p>
-            <form method="post">
-              <input type="hidden" id="$todoData->id" name="Key" value="$todoData->id">
-              <input type="submit" name="edit" value="Edit" />
-            </form>
+            <a href="/todoapp/create.php?id=$todoData->id">Edit</a>
           </article>
         XML;
         }
