@@ -59,37 +59,34 @@ class TodoList {
     return $todoListData;
   }
 
-  // public static function add($userName, $password, $firstName, $lastName) {
-  //   $todoDb = todo_db_connect();
+  public static function add($title, $description, $userId) {
+    $todoDb = todo_db_connect();
+
+    $descriptionOrNull = $description ? "\"$description\"" : "NULL";
   
-  //   $firstNameOrNull = $firstName ? "\"$firstName\"" : "NULL";
-  //   $lastNameOrNull = $lastName ? "\"$lastName\"" : "NULL";
-    
-  //   $query = "INSERT INTO person(
-  //       person_username,
-  //       person_password,
-  //       person_first_name,
-  //       person_last_name
-  //     )
-  //     VALUES(
-  //       \"$userName\",
-  //       \"$password\",
-  //       $firstNameOrNull,
-  //       $lastNameOrNull
-  //     )
-  //   ";
+    $query = "INSERT INTO
+    todo_list(
+      todo_list_title,
+      todo_list_description,
+      todo_list_person_id
+    )
+    VALUES(
+      \"$title\",
+      $descriptionOrNull,
+      $userId
+    )";
   
-  //   $id = -1; //Default return -1 on failure
+    $id = -1; //Default return -1 on failure
   
-  //   if($todoDb->query($query) === TRUE) {
-  //     $id = $todoDb->insert_id;
-  //   }
+    if($todoDb->query($query) === TRUE) {
+      $id = $todoDb->insert_id;
+    }
   
-  //   /* close connection */
-  //   $todoDb->close();
+    /* close connection */
+    $todoDb->close();
   
-  //   return $id;
-  // }
+    return $id;
+  }
 }
 
 ?>

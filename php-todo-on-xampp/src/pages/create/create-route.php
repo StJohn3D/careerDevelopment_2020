@@ -15,18 +15,23 @@
       <h1>Create new ToDo list</h1>
       <form method="post" action="create.php">
         <div class="form-control">
-          <label for="todo_list_title">Title</label>
-          <input type="text" name="todo_list_title" id="todo_list_title"
-            required aria-required="true" minlength="4" maxlength="256"
-            value="some title"
+          <label for="title">Title<?php
+            if(!$titleState->valid) { echo ": <b>$titleState->errorMessage</b>"; }
+          ?></label>
+          <input type="text" name="title" id="title"
+            required aria-required="true" minlength="4" maxlength="55"
+            value="<?php echo $title; ?>"
           />
         </div>
         <div class="form-control">
-          <label for="todo_list_description">Description</label>
-          <input type="text" name="todo_list_description" id="todo_list_description"
-            required aria-required="true" minlength="4" maxlength="256"
-            value="bla bla"
+          <label for="description">Description<?php
+            if(!$descriptionState->valid) { echo ": <b>$descriptionState->errorMessage</b>"; }
+          ?></label>
+          <textarea name="description" id="description"
+            aria-required="false" maxlength="256"
           />
+            <?php echo $description; ?>
+          </textarea>
         </div>
         <a href="/todoapp/index.php?">Cancel</a>
         <input type="submit" name="submit" value="Create"/>
