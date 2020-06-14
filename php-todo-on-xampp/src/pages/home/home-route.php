@@ -32,7 +32,7 @@
               <aside>$todoData->numCompleted/$todoData->numTodos<aside>
             </header>
             <p>$todoData->description</p>
-            <a href="/todoapp/create.php?id=$todoData->id">Edit</a>
+            <a href="/todoapp/edit.php?id=$todoData->id">Edit</a>
           </article>
         XML;
         }
