@@ -1,5 +1,6 @@
 <?php
 require_once('todo_db_connect.php');
+require_once('Todo.php');
 
 class TodoListDTO {
   public $id = -1;
@@ -12,8 +13,9 @@ class TodoListDTO {
     $this->id = $id;
     $this->title = $title;
     $this->description = $description;
-    $this->numTodos = $numTodos;
-    $this->numCompleted = $numCompleted;
+    $countsData = Todo::getCountsByListId($id);
+    $this->numTodos = $countsData->numTodos;
+    $this->numCompleted = $countsData->numCompleted;
   }
 }
 
@@ -25,12 +27,19 @@ class TodoList {
         t.todo_list_id,
         t.todo_list_title,
         t.todo_list_description,
-        COUNT(ALL todo.todo_id) 'num_todos',
-        SUM(todo.todo_completed) 'num_completed'
+        COALESCE(counts.num_todos, 0) num_todos,
+        COALESCE(counts.num_completed, 0) num_completed
       FROM todo_list t
-      INNER JOIN
-      todo
-      ON todo.todo_todo_list_id = t.todo_list_id
+      LEFT OUTER JOIN
+      (
+        SELECT
+          t.todo_todo_list_id,
+          COUNT(ALL t.todo_id) num_todos,
+          COALESCE(SUM(t.todo_completed), 0) num_completed
+        FROM todo t
+        WHERE t.todo_todo_list_id = 1
+      ) counts
+      ON counts.todo_todo_list_id = t.todo_list_id
       WHERE t.todo_list_person_id = $userId
     ";
   
