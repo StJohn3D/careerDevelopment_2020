@@ -25,11 +25,12 @@
       <hr/>
       <?php
         foreach ($todoListData as $todoData) {
+          $countsData = Todo::getCountsByListId($todoData->id);
           echo <<<XML
           <article className="todo_card" style="border: 1px solid; padding: 16px;">
             <header>
               <h1>$todoData->title<h1>
-              <aside>$todoData->numCompleted/$todoData->numTodos<aside>
+              <aside>$countsData->numCompleted/$countsData->numTodos<aside>
             </header>
             <p>$todoData->description</p>
             <a href="/todoapp/edit.php?id=$todoData->id">Edit</a>

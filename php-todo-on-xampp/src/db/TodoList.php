@@ -6,16 +6,11 @@ class TodoListDTO {
   public $id = -1;
   public $title = "";
   public $description = "";
-  public $numTodos = 0;
-  public $numCompleted = 0;
 
-  public function __construct($id, $title, $description, $numTodos, $numCompleted) {
+  public function __construct($id, $title, $description) {
     $this->id = $id;
     $this->title = $title;
     $this->description = $description;
-    $countsData = Todo::getCountsByListId($id);
-    $this->numTodos = $countsData->numTodos;
-    $this->numCompleted = $countsData->numCompleted;
   }
 }
 
@@ -26,20 +21,8 @@ class TodoList {
     $query = "SELECT
         t.todo_list_id,
         t.todo_list_title,
-        t.todo_list_description,
-        COALESCE(counts.num_todos, 0) num_todos,
-        COALESCE(counts.num_completed, 0) num_completed
+        t.todo_list_description
       FROM todo_list t
-      LEFT OUTER JOIN
-      (
-        SELECT
-          t.todo_todo_list_id,
-          COUNT(ALL t.todo_id) num_todos,
-          COALESCE(SUM(t.todo_completed), 0) num_completed
-        FROM todo t
-        WHERE t.todo_todo_list_id = 1
-      ) counts
-      ON counts.todo_todo_list_id = t.todo_list_id
       WHERE t.todo_list_person_id = $userId
     ";
   
@@ -52,9 +35,7 @@ class TodoList {
         $todoListData[] = new TodoListDTO(
           $row['todo_list_id'],
           $row['todo_list_title'],
-          $row['todo_list_description'],
-          $row['num_todos'],
-          $row['num_completed']
+          $row['todo_list_description']
         );
       }
     }
