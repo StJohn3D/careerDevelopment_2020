@@ -49,6 +49,40 @@ class TodoList {
     return $todoListData;
   }
 
+  public static function getById($id) {
+    $todoDb = todo_db_connect();
+  
+    $query = "SELECT
+        t.todo_list_title,
+        t.todo_list_description
+      FROM todo_list t
+      WHERE t.todo_list_id = $id
+    ";
+  
+    $todoListData = null;
+  
+    $result = $todoDb->query($query);
+  
+    if (!!$result) { //TODO mirror this pattern to all of the other requests to protect against null/undefined result errors
+      if ($result->num_rows === 1) {
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $todoListData = new TodoListDTO(
+          $id,
+          $row['todo_list_title'],
+          $row['todo_list_description']
+        );
+      }
+    
+      /* free result set */
+      $result->free();
+    }
+  
+    /* close connection */
+    $todoDb->close();
+
+    return $todoListData;
+  }
+
   public static function add($title, $description, $userId) {
     $todoDb = todo_db_connect();
 
