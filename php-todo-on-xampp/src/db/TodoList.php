@@ -111,6 +111,19 @@ class TodoList {
   
     return $id;
   }
+
+  public static function delete($id) {
+    $todoDb = todo_db_connect();
+
+    $query = "DELETE FROM todo_list WHERE todo_list_id = $id";
+  
+    $success = $todoDb->query($query);
+  
+    /* close connection */
+    $todoDb->close();
+  
+    return $success;
+  }
 }
 
 ?>

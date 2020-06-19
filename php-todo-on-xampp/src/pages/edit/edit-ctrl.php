@@ -18,4 +18,10 @@
   }
 
   $formSubmitAddress = "edit.php?" . $_SERVER['QUERY_STRING'];
+
+  if (isset($_POST['delete-confirm'])) {
+    TodoList::delete($todoListId);
+    header('Location: '.$uri.'/todoapp/index.php/');
+    exit;
+  }
 ?>

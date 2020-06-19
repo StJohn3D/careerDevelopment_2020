@@ -18,7 +18,7 @@
     $todoListId = TodoList::add($title, $description, $userData->id);
   
     if ($todoListId > -1) {
-      header('Location: '.$uri."/todoapp/edit.php?id=$todoListId/");
+      header('Location: '.$uri."/todoapp/edit.php?id=$todoListId");
       exit;
     }
   }
