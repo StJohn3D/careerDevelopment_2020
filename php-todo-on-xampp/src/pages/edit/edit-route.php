@@ -1,63 +1,71 @@
 <?php
   require_once('edit-ctrl.php');
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToDo App</title>
-</head>
-<body>
-  <main>
-    <h1>ToDo App</h1>
+  require_once('./components/Page.php');
+  require_once('./components/AuthedHeader.php');
+
+  $headerContent = AuthedHeader::render($userData);
+
+  // $titleErrorMessage = $titleState->valid ? "" : <<<XML
+  //   <b>$titleState->errorMessage</b>
+  // XML;
+
+  // $descriptionErrorMessage = $descriptionState->valid ? "" : <<<XML
+  //   <b>$descriptionState->errorMessage</b>
+  // XML;
+
+  $listTitleDescriptionForm = <<<XML
     <section>
-      <h1>Edit</h1>
-      <form method="post" action="<?php echo $formSubmitAddress; ?>">
+      <form method="post" action="$formSubmitAddress">
         <div class="form-control">
           <label for="todo_list_title">Title</label>
           <input type="text" name="todo_list_title" id="todo_list_title"
             required aria-required="true" minlength="4" maxlength="256"
-            value="<?php echo $todoListData->title; ?>"
+            value="$todoListData->title"
           />
         </div>
         <div class="form-control">
           <label for="todo_list_description">Description</label>
-          <input type="text" name="todo_list_description" id="todo_list_description"
-            required aria-required="true" minlength="4" maxlength="256"
-            value="<?php echo $todoListData->description; ?>"
-          />
+          <textarea name="todo_list_description" id="todo_list_description"
+          aria-required="false" maxlength="256"
+          />$todoListData->description</textarea>
         </div>
         <a href="/todoapp/index.php?">Cancel</a>
         <input type="submit" name="submit" value="Save"/>
       </form>
     </section>
+  XML;
+
+  $completionStatusAndDeleteBtn = <<<XML
     <aside>
       <p>#/#</p>
-      <form method="post" action="<?php echo $formSubmitAddress; ?>">
+      <form method="post" action="$formSubmitAddress">
         <input type="submit" name="delete-prompt" value="Delete"/>
       </form>
     </aside>
-    <form method="post" action="<?php echo $formSubmitAddress; ?>">
-    <?php
-      if (isset($_POST['delete-prompt'])) {
-        echo <<<XML
-          <div class="modal">
-            <section class="modal__header">
-              <h1>Warning</h1>
-            </section>
-            <section class="modal__body">
-              <p>This is a destructive action and cannot be undone. </br> Are you sure you want to delete this ToDo list?</p>
-            </section>
-            <section class="modal__footer">
-                <input type="submit" name="delete-cancel" value="No Cancel" />
-                <input type="submit" name="delete-confirm" value="Yes Delete" />
-            </section>
-          </div>
-        XML;
-      }
-    ?>
+  XML;
+
+  $deletePrompt = !isset($_POST['delete-prompt']) ? "" : <<<XML
+    <form method="post" action="$formSubmitAddress">
+      <div class="modal">
+        <section class="modal__header">
+          <h1>Warning</h1>
+        </section>
+        <section class="modal__body">
+          <p>This is a destructive action and cannot be undone.</br>Are you sure you want to delete this ToDo list?</p>
+        </section>
+        <section class="modal__footer">
+            <input type="submit" name="delete-cancel" value="No, Cancel" />
+            <input type="submit" name="delete-confirm" value="Yes, Delete" />
+        </section>
+      </div>
     </form>
-  </main>
-</body>
-</html>
+  XML;
+
+  $bodyContent = <<<XML
+    $listTitleDescriptionForm
+    $completionStatusAndDeleteBtn
+    $deletePrompt
+  XML;
+
+  new Page("Edit", $headerContent, $bodyContent);
+?>
