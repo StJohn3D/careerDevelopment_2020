@@ -1,44 +1,42 @@
 <?php
   require_once('home-ctrl.php');
+  require_once('./components/Page.php');
+  require_once('./components/AuthedHeader.php');
+
+  $headerContent = AuthedHeader::render($userData);
+
+  $listContent = "";
+  foreach ($todoListData as $todoData) {
+    $countsData = Todo::getCountsByListId($todoData->id);
+    $listContent .= <<<XML
+      <article className="todo_card" style="border: 1px solid; padding: 16px;">
+        <header>
+          <h1>$todoData->title<h1>
+          <aside>$countsData->numCompleted/$countsData->numTodos<aside>
+        </header>
+        <p>$todoData->description</p>
+        <a href="/todoapp/edit.php?id=$todoData->id">Edit</a>
+      </article>
+    XML;
+  }
+
+  $userTitle = "";
+  if ($userData->firstName !== null) {
+    $userTitle .= $userData->firstName;
+    if ($userData->lastName !== null) {
+      $userTitle .= " $userData->lastName";
+    }
+    $userTitle .= "'s ";
+  } else {
+    $userTitle .= "My ";
+  }
+  $userTitle .= "ToDo lists";
+
+  $bodyContent = <<<XML
+    <a href="/todoapp/create.php">Create new ToDo list</a>
+    <hr/>
+    $listContent
+  XML;
+
+  new Page($userTitle, $headerContent, $bodyContent);
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToDo App</title>
-</head>
-<body>
-  <main>
-    <header>
-      <h1>ToDo App</h1>
-      <form method="post">
-        <label>
-          <?php echo $userData->userName ?>
-        </label>
-        <input type="submit" name="logout" value="Logout" />
-      </form>
-    </header>
-    <section>
-      <h1><?php echoHeaderTitle($userData) ?></h1>
-      <a href="/todoapp/create.php">Create new ToDo list</a>
-      <hr/>
-      <?php
-        foreach ($todoListData as $todoData) {
-          $countsData = Todo::getCountsByListId($todoData->id);
-          echo <<<XML
-          <article className="todo_card" style="border: 1px solid; padding: 16px;">
-            <header>
-              <h1>$todoData->title<h1>
-              <aside>$countsData->numCompleted/$countsData->numTodos<aside>
-            </header>
-            <p>$todoData->description</p>
-            <a href="/todoapp/edit.php?id=$todoData->id">Edit</a>
-          </article>
-        XML;
-        }
-      ?>
-    </section>
-  </main>
-</body>
-</html>
