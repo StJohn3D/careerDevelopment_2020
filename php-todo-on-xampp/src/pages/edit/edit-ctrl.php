@@ -9,13 +9,17 @@
   }
 
   require_once('./db/TodoList.php');
-
+  
   $todoListData = TodoList::getById($todoListId);
-
+  
   if ($todoListData === null) {
     header('Location: '.$uri.'/todoapp/404.php/');
     exit;
   }
+  
+  require_once('./db/Todo.php');
+  $countsData = Todo::getCountsByListId($todoListId);
+  $todosData = Todo::getByListId($todoListId);
 
   $formSubmitAddress = "edit.php?" . $_SERVER['QUERY_STRING'];
 

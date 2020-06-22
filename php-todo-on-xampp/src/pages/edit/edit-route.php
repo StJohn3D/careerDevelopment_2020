@@ -14,7 +14,7 @@
   // XML;
 
   $listTitleDescriptionForm = <<<XML
-    <section>
+    <section class="todo_list_details">
       <form method="post" action="$formSubmitAddress">
         <div class="form-control">
           <label for="todo_list_title">Title</label>
@@ -35,9 +35,47 @@
     </section>
   XML;
 
+  $todosContent = "";
+  foreach ($todosData as $todoData) {
+    $todosContent .= <<<XML
+      <article className="todo_card" style="border: 1px solid; padding: 16px;">
+        <form method="post" action="$formSubmitAddress">
+          <div class="form-control">
+            <label for="todo_title_$todoData->id">Title</label>
+            <input type="text" name="todo_title" id="todo_title_$todoData->id"
+              required aria-required="true" minlength="4" maxlength="55"
+              value="$todoData->title"
+            />
+          </div>
+          <div class="form-control">
+            <label for="todo_description_$todoData->id">Description</label>
+            <textarea name="todo_description" id="todo_description_$todoData->id"
+              aria-required="false" maxlength="256"
+            />$todoData->description</textarea>
+          </div>
+          <div class="form-control">
+            <label for="todo_due_date_$todoData->id">Due Date</label>
+            <input type="date" name="todo_due_date" id="todo_due_date_$todoData->id"
+              aria-required="false" maxlength="256"
+              value="$todoData->dueDate"
+            />
+          </div>
+          <div class="form-control">
+            <label for="todo_complete_$todoData->id">Completed</label>
+            <input type="checkbox" name="todo_completed" id="todo_complete_$todoData->id"
+              aria-required="false"
+              checked="$todoData->completed"
+            />
+          </div>
+          <input type="submit" name="delete-todo" value="Delete"/>
+        </form>
+      </article>
+    XML;
+  }
+
   $completionStatusAndDeleteBtn = <<<XML
     <aside>
-      <p>#/#</p>
+      <p>$countsData->numCompleted/$countsData->numTodos</p>
       <form method="post" action="$formSubmitAddress">
         <input type="submit" name="delete-prompt" value="Delete"/>
       </form>
@@ -63,6 +101,9 @@
 
   $bodyContent = <<<XML
     $listTitleDescriptionForm
+    <section class="todos">
+      $todosContent
+    </section>
     $completionStatusAndDeleteBtn
     $deletePrompt
   XML;
