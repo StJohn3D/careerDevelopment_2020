@@ -2,6 +2,8 @@
   require_once('edit-ctrl.php');
   require_once('./components/Page.php');
   require_once('./components/AuthedHeader.php');
+  require_once('TodoList_Details_View.php');
+  require_once('TodoList_Details_Edit.php');
 
   $headerContent = AuthedHeader::render($userData);
 
@@ -13,27 +15,10 @@
   //   <b>$descriptionState->errorMessage</b>
   // XML;
 
-  $listTitleDescriptionForm = <<<XML
-    <section class="todo_list_details">
-      <form method="post" action="$formSubmitAddress">
-        <div class="form-control">
-          <label for="todo_list_title">Title</label>
-          <input type="text" name="todo_list_title" id="todo_list_title"
-            required aria-required="true" minlength="4" maxlength="256"
-            value="$todoListData->title"
-          />
-        </div>
-        <div class="form-control">
-          <label for="todo_list_description">Description</label>
-          <textarea name="todo_list_description" id="todo_list_description"
-          aria-required="false" maxlength="256"
-          />$todoListData->description</textarea>
-        </div>
-        <a href="/todoapp/index.php?">Cancel</a>
-        <input type="submit" name="submit" value="Save"/>
-      </form>
-    </section>
-  XML;
+  $listTitleDescriptionForm = $activeEditing === 'details'
+    ? TodoList_Details_Edit::render($todoListData)
+    : TodoList_Details_View::render($todoListData)
+  ;
 
   $todosContent = "";
   foreach ($todosData as $todoData) {
@@ -100,6 +85,7 @@
   XML;
 
   $bodyContent = <<<XML
+    <a href="/todoapp/index.php">Back</a>
     $listTitleDescriptionForm
     <section class="todos">
       $todosContent
