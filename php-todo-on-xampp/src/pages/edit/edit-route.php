@@ -2,6 +2,7 @@
   require_once('edit-ctrl.php');
   require_once('./components/Page.php');
   require_once('./components/AuthedHeader.php');
+  require_once('TodoItem_View.php');
 
   $headerContent = AuthedHeader::render($userData);
   
@@ -11,45 +12,17 @@
     $todoListDetailsSection = TodoList_Details_Edit::render($todoListData);
   } else {
     require_once('TodoList_Details_View.php');
-    $todoListDetailsSection = TodoList_Details_View::render($todoListData);
+    $todoListDetailsSection = TodoList_Details_View::render($todoListData, $editButtonsEnabled);
   }
 
   $todosContent = "";
   foreach ($todosData as $todoData) {
-    $todosContent .= <<<XML
-      <article className="todo_card" style="border: 1px solid; padding: 16px;">
-        <form method="post" action="$formSubmitAddress">
-          <div class="form-control">
-            <label for="todo_title_$todoData->id">Title</label>
-            <input type="text" name="todo_title" id="todo_title_$todoData->id"
-              required aria-required="true" minlength="4" maxlength="55"
-              value="$todoData->title"
-            />
-          </div>
-          <div class="form-control">
-            <label for="todo_description_$todoData->id">Description</label>
-            <textarea name="todo_description" id="todo_description_$todoData->id"
-              aria-required="false" maxlength="256"
-            />$todoData->description</textarea>
-          </div>
-          <div class="form-control">
-            <label for="todo_due_date_$todoData->id">Due Date</label>
-            <input type="date" name="todo_due_date" id="todo_due_date_$todoData->id"
-              aria-required="false" maxlength="256"
-              value="$todoData->dueDate"
-            />
-          </div>
-          <div class="form-control">
-            <label for="todo_complete_$todoData->id">Completed</label>
-            <input type="checkbox" name="todo_completed" id="todo_complete_$todoData->id"
-              aria-required="false"
-              checked="$todoData->completed"
-            />
-          </div>
-          <input type="submit" name="delete-todo" value="Delete"/>
-        </form>
-      </article>
-    XML;
+    if ($activeEditing === $todoData->id) {
+      require_once('TodoItem_Edit.php');
+      $todosContent .= TodoItem_Edit::render($todoData, $todoListData->id);
+    } else {
+      $todosContent .= TodoItem_View::render($todoData, $todoListData->id, $editButtonsEnabled);
+    }
   }
 
   $completionStatusAndDeleteBtn = <<<XML
@@ -79,13 +52,13 @@
   XML;
 
   $bodyContent = <<<XML
-    <a href="/todoapp/index.php">Back</a>
+    <a href="/todoapp/index.php">Home</a>
+    $completionStatusAndDeleteBtn
+    $deletePrompt
     $todoListDetailsSection
     <section class="todos">
       $todosContent
     </section>
-    $completionStatusAndDeleteBtn
-    $deletePrompt
   XML;
 
   new Page("Edit", $headerContent, $bodyContent);

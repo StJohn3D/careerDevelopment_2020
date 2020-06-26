@@ -2,10 +2,11 @@
   parse_str($_SERVER['QUERY_STRING'], $queryParams);
 
   $todoListId = $queryParams['id'];
-  $activeEditing = '';
+  $activeEditing = null;
   if (isset($queryParams['edit'])) {
     $activeEditing = $queryParams['edit'];
   }
+  $editButtonsEnabled = $activeEditing === null;
 
   if (!$todoListId) {
     header('Location: '.$uri.'/todoapp/create.php/');

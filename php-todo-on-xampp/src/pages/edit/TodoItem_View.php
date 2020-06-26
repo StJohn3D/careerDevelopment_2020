@@ -1,0 +1,38 @@
+<?php
+class TodoItem_View {
+  public static function render($todoData, $todoListId, $editButtonsEnabled) {
+
+    $disabledState = $editButtonsEnabled ? "" : "disabled";
+    $ariaDisabled = $editButtonsEnabled ? "" : "aria-disabled=\"true\"";
+    $disabledClass = $editButtonsEnabled ? "" : " edit-icon--disabled";
+
+    $toggleState = $todoData->completed ? "checked" : "unchecked";
+    $toggleValue = $todoData->completed ? "☑" : "☐";
+
+    $dueDate = $todoData->dueDate === null ? "" : <<<XML
+      <aside class="due-date">
+        <h1>Due on $todoData->dueDate</h1>
+      </aside>
+    XML;
+    
+    return <<<XML
+      <article className="todo-card" style="border: 1px solid; padding: 16px;">
+        <section class="todo-card__completed-toggle">
+          <form method="post" style="font-size: 2rem;">
+            <input type="submit" name="completed_toggle" id="completed_toggle_$todoData->id" class="checkbox checkbox--$toggleState" value="$toggleValue"/>
+          </form>
+        </section>
+        <section class="todo-card__details">
+          <h1 class="todo-card__title">$todoData->title</h1>
+          <p class="todo-card__description">$todoData->description</p>
+        </section>
+        $dueDate
+        <aside>
+          <a $disabledState $ariaDisabled class="edit-icon$disabledClass" href="/todoapp/edit.php?id=$todoListId&edit=$todoData->id">Edit</a>
+        </aside>
+      </article>
+
+    XML;
+  }
+}
+?>
