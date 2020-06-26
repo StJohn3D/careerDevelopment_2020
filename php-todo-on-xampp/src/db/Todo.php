@@ -98,6 +98,25 @@ class Todo {
 
     return $todosData;
   }
+
+  public static function setChecked($todoId, $checked) {
+    $todoDb = todo_db_connect();
+
+    $checkedVal = $checked ? "TRUE" : "FALSE";
+
+    $query = "UPDATE todo
+      SET
+        todo_completed = $checkedVal
+      WHERE todo_id = $todoId;
+    ";
+  
+    $success = $todoDb->query($query);
+  
+    /* close connection */
+    $todoDb->close();
+  
+    return $success;
+  }
 }
 
 ?>

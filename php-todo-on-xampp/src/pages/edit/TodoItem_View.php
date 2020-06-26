@@ -1,4 +1,6 @@
 <?php
+require_once('./db/Todo.php');
+
 class TodoItem_View {
   public static function render($todoData, $todoListId, $editButtonsEnabled) {
 
@@ -14,12 +16,19 @@ class TodoItem_View {
         <h1>Due on $todoData->dueDate</h1>
       </aside>
     XML;
+
+    $toggleFieldName = "completed_toggle_$todoData->id";
+
+    if (isset($_POST[$toggleFieldName])) {
+      Todo::setChecked($todoData->id, !$todoData->completed);
+      echo "<meta http-equiv='refresh' content='0'>";
+    }
     
     return <<<XML
       <article className="todo-card" style="border: 1px solid; padding: 16px;">
         <section class="todo-card__completed-toggle">
           <form method="post" style="font-size: 2rem;">
-            <input type="submit" name="completed_toggle" id="completed_toggle_$todoData->id" class="checkbox checkbox--$toggleState" value="$toggleValue"/>
+            <input type="submit" name="$toggleFieldName" id="$toggleFieldName" class="checkbox checkbox--$toggleState" value="$toggleValue"/>
           </form>
         </section>
         <section class="todo-card__details">

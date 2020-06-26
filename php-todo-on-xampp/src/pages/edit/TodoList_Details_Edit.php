@@ -17,7 +17,7 @@ class TodoList_Details_Edit {
     ;
 
     if (isset($_POST['submit']) && $formIsValid) {
-      $todoListId = TodoList::edit($todoListData->id, $title, $description);
+      $success = TodoList::edit($todoListData->id, $title, $description);
 
       header('Location: '.$uri."/todoapp/edit.php?id=$todoListData->id");
       exit;
