@@ -124,6 +124,24 @@ class TodoList {
   
     return $success;
   }
+
+  public static function edit($id, $title, $description) {
+    $todoDb = todo_db_connect();
+
+    $query = "UPDATE todo_list
+      SET
+        todo_list_title = \"$title\",
+        todo_list_description = \"$description\"
+      WHERE todo_list_id = $id;
+    ";
+  
+    $success = $todoDb->query($query);
+  
+    /* close connection */
+    $todoDb->close();
+  
+    return $success;
+  }
 }
 
 ?>

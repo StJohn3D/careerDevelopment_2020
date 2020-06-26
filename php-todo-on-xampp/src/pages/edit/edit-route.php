@@ -2,23 +2,17 @@
   require_once('edit-ctrl.php');
   require_once('./components/Page.php');
   require_once('./components/AuthedHeader.php');
-  require_once('TodoList_Details_View.php');
-  require_once('TodoList_Details_Edit.php');
 
   $headerContent = AuthedHeader::render($userData);
-
-  // $titleErrorMessage = $titleState->valid ? "" : <<<XML
-  //   <b>$titleState->errorMessage</b>
-  // XML;
-
-  // $descriptionErrorMessage = $descriptionState->valid ? "" : <<<XML
-  //   <b>$descriptionState->errorMessage</b>
-  // XML;
-
-  $listTitleDescriptionForm = $activeEditing === 'details'
-    ? TodoList_Details_Edit::render($todoListData)
-    : TodoList_Details_View::render($todoListData)
-  ;
+  
+  $todoListDetailsSection = "";
+  if ($activeEditing === 'details') {
+    require_once('TodoList_Details_Edit.php');
+    $todoListDetailsSection = TodoList_Details_Edit::render($todoListData);
+  } else {
+    require_once('TodoList_Details_View.php');
+    $todoListDetailsSection = TodoList_Details_View::render($todoListData);
+  }
 
   $todosContent = "";
   foreach ($todosData as $todoData) {
@@ -86,7 +80,7 @@
 
   $bodyContent = <<<XML
     <a href="/todoapp/index.php">Back</a>
-    $listTitleDescriptionForm
+    $todoListDetailsSection
     <section class="todos">
       $todosContent
     </section>
