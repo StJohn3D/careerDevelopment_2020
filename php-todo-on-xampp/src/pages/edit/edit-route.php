@@ -18,14 +18,26 @@
 
   $createSection = TodoItem_Create::render($activeEditing === 'new', $todoListData->id, $editButtonsEnabled);
 
+  function notDone($todoData) {
+    return !$todoData->completed;
+  }
+  function done($todoData) {
+    return $todoData->completed;
+  }
+
   $todosContent = "";
-  foreach ($todosData as $todoData) {
+  foreach (array_filter($todosData, "notDone") as $todoData) {
     if ($activeEditing === $todoData->id) {
       require_once('TodoItem_Edit.php');
       $todosContent .= TodoItem_Edit::render($todoData, $todoListData->id);
     } else {
       $todosContent .= TodoItem_View::render($todoData, $todoListData->id, $editButtonsEnabled);
     }
+  }
+
+  $completedTodosContent = "";
+  foreach (array_filter($todosData, "done") as $todoData) {
+    $completedTodosContent .= TodoItem_View::render($todoData, $todoListData->id, $editButtonsEnabled);
   }
 
   $completionStatusAndDeleteBtn = <<<XML
@@ -63,7 +75,12 @@
     $createSection
     <hr/>
     <section class="todos">
+      <h1>Todo</h1>
       $todosContent
+    </section>
+    <section class="completed">
+      <h1>Done</h1>
+      $completedTodosContent
     </section>
   XML;
 

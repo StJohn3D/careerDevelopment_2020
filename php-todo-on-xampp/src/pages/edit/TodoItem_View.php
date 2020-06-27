@@ -35,6 +35,13 @@ class TodoItem_View {
       Todo::delete($todoData->id);
       echo "<meta http-equiv='refresh' content='0'>";
     }
+
+    $editButton = "";
+    if (!$todoData->completed) {
+      $editButton = <<<XML
+        <a $disabledState $ariaDisabled class="edit-icon$editIconDisabledClass" href="/todoapp/edit.php?id=$todoListId&edit=$todoData->id">Edit</a>
+      XML;
+    }
     
     return <<<XML
       <article className="todo-card" style="border: 1px solid; padding: 16px;">
@@ -42,7 +49,7 @@ class TodoItem_View {
           <form method="post" style="font-size: 2rem;">
             <input type="submit" name="$toggleFieldName" id="$toggleFieldName" class="checkbox checkbox--$toggleState" value="$toggleValue"/>
           </form>
-          <a $disabledState $ariaDisabled class="edit-icon$editIconDisabledClass" href="/todoapp/edit.php?id=$todoListId&edit=$todoData->id">Edit</a>
+          $editButton
         </section>
         <section class="todo-card__details">
           <h1 class="todo-card__title">$todoData->title</h1>
