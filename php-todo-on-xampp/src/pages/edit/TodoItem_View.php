@@ -6,7 +6,8 @@ class TodoItem_View {
 
     $disabledState = $editButtonsEnabled ? "" : "disabled";
     $ariaDisabled = $editButtonsEnabled ? "" : "aria-disabled=\"true\"";
-    $disabledClass = $editButtonsEnabled ? "" : " edit-icon--disabled";
+    $editIconDisabledClass = $editButtonsEnabled ? "" : " edit-icon--disabled";
+    $deleteIconDisabledClass = $editButtonsEnabled ? "" : " trashcan--disabled";
 
     $toggleState = $todoData->completed ? "checked" : "unchecked";
     $toggleValue = $todoData->completed ? "☑" : "☐";
@@ -23,18 +24,25 @@ class TodoItem_View {
     }
 
     $toggleFieldName = "completed_toggle_$todoData->id";
+    $deleteFieldName = "delete_$todoData->id";
 
     if (isset($_POST[$toggleFieldName])) {
       Todo::setChecked($todoData->id, !$todoData->completed);
       echo "<meta http-equiv='refresh' content='0'>";
     }
+
+    if (isset($_POST[$deleteFieldName])) {
+      Todo::delete($todoData->id);
+      echo "<meta http-equiv='refresh' content='0'>";
+    }
     
     return <<<XML
       <article className="todo-card" style="border: 1px solid; padding: 16px;">
-        <section class="todo-card__completed-toggle">
+        <section class="todo-card__actions">
           <form method="post" style="font-size: 2rem;">
             <input type="submit" name="$toggleFieldName" id="$toggleFieldName" class="checkbox checkbox--$toggleState" value="$toggleValue"/>
           </form>
+          <a $disabledState $ariaDisabled class="edit-icon$editIconDisabledClass" href="/todoapp/edit.php?id=$todoListId&edit=$todoData->id">Edit</a>
         </section>
         <section class="todo-card__details">
           <h1 class="todo-card__title">$todoData->title</h1>
@@ -42,7 +50,9 @@ class TodoItem_View {
         </section>
         $dueDate
         <aside>
-          <a $disabledState $ariaDisabled class="edit-icon$disabledClass" href="/todoapp/edit.php?id=$todoListId&edit=$todoData->id">Edit</a>
+          <form method="post">
+            <input $disabledState $ariaDisabled type="submit" name="$deleteFieldName" id="$deleteFieldName" class="trashcan $deleteIconDisabledClass" value="delete"/>
+          </form>
         </aside>
       </article>
 

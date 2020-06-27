@@ -28,7 +28,7 @@ class TodoItem_Edit {
 
     if (isset($_POST['submit']) && $formIsValid) {
       if ($todoData->id === null) {
-        // TODO Create Logic here
+        $id = Todo::add($todoListId, $title, $description, $dueDate);
       } else {
         $success = Todo::edit($todoData->id, $title, $description, $dueDate);
       }
@@ -53,14 +53,14 @@ class TodoItem_Edit {
       <article className="todo_card" style="border: 1px solid; padding: 16px;">
         <form method="post">
           <div class="form-control">
-            <label for="todo_title">Title</label>
+            <label for="todo_title">Title $titleErrorMessage</label>
             <input type="text" name="todo_title" id="todo_title"
               required aria-required="true" minlength="4" maxlength="55"
               value="$title"
             />
           </div>
           <div class="form-control">
-            <label for="todo_description">Description</label>
+            <label for="todo_description">Description $descriptionErrorMessage</label>
             <textarea name="todo_description" id="todo_description"
               aria-required="false" maxlength="256"
             />$description</textarea>

@@ -14,13 +14,13 @@ class TodoCountsDTO {
 }
 
 class TodoDTO {
-  public $id = 0;
+  public $id = null;
   public $title = "";
   public $description = "";
   public $dueDate = null;
   public $completed = false;
 
-  public function __construct($id, $title, $description = "", $dueDate = null, $completed) {
+  public function __construct($id = null, $title = "", $description = "", $dueDate = null, $completed = false) {
     $this->id = $id;
     $this->title = $title;
     $this->description = $description;
@@ -109,6 +109,59 @@ class Todo {
         todo_completed = $checkedVal
       WHERE todo_id = $todoId;
     ";
+  
+    $success = $todoDb->query($query);
+  
+    /* close connection */
+    $todoDb->close();
+  
+    return $success;
+  }
+
+  public static function add($todoListId, $title, $description, $dueDate) {
+    $todoDb = todo_db_connect();
+
+    $descriptionOrNull = (isset($description) && $description !== '') ? "\"$description\"" : 'NULL';
+
+    $dateValue = 'NULL';
+    if (isset($dueDate) && $dueDate !== '') {
+      $dateTime = new DateTime($dueDate);
+      $formatted = $dateTime->format("Y-m-d H:i:s");
+      $dateValue = "\"$formatted\"";
+    }
+  
+    $query = "INSERT INTO
+    todo(
+      todo_title,
+      todo_description,
+      todo_due_date,
+      todo_completed,
+      todo_todo_list_id
+    )
+    VALUES(
+      \"$title\",
+      $descriptionOrNull,
+      $dateValue,
+      FALSE,
+      $todoListId
+    );";
+  
+    $id = -1; //Default return -1 on failure
+  
+    if($todoDb->query($query) === TRUE) {
+      $id = $todoDb->insert_id;
+    }
+  
+    /* close connection */
+    $todoDb->close();
+  
+    return $id;
+  }
+
+  public static function delete($id) {
+    $todoDb = todo_db_connect();
+
+    $query = "DELETE FROM todo WHERE todo_id = $id";
   
     $success = $todoDb->query($query);
   

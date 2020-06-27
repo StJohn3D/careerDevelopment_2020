@@ -3,6 +3,7 @@
   require_once('./components/Page.php');
   require_once('./components/AuthedHeader.php');
   require_once('TodoItem_View.php');
+  require_once('TodoItem_Create.php');
 
   $headerContent = AuthedHeader::render($userData);
   
@@ -14,6 +15,8 @@
     require_once('TodoList_Details_View.php');
     $todoListDetailsSection = TodoList_Details_View::render($todoListData, $editButtonsEnabled);
   }
+
+  $createSection = TodoItem_Create::render($activeEditing === 'new', $todoListData->id, $editButtonsEnabled);
 
   $todosContent = "";
   foreach ($todosData as $todoData) {
@@ -56,6 +59,9 @@
     $completionStatusAndDeleteBtn
     $deletePrompt
     $todoListDetailsSection
+    <br/>
+    $createSection
+    <hr/>
     <section class="todos">
       $todosContent
     </section>
