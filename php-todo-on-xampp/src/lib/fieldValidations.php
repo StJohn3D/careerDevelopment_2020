@@ -80,4 +80,12 @@ function rule_isEmail($value) {
   }
   return validationResponse();
 }
+
+function rule_isDateString($value, $format = 'Y-m-d') {
+  $test = DateTime::createFromFormat($format, $value);
+  if ($test && $test->format($format) === $value) {
+    return validationResponse();
+  }
+  return validationResponse(false, "Invalid Date Format, please use $format");
+}
 ?>

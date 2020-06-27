@@ -11,11 +11,16 @@ class TodoItem_View {
     $toggleState = $todoData->completed ? "checked" : "unchecked";
     $toggleValue = $todoData->completed ? "☑" : "☐";
 
-    $dueDate = $todoData->dueDate === null ? "" : <<<XML
-      <aside class="due-date">
-        <h1>Due on $todoData->dueDate</h1>
-      </aside>
-    XML;
+    $dueDate = "";
+    if ($todoData->dueDate !== null) {
+      $dateTime = new DateTime($todoData->dueDate);
+      $formatted = $dateTime->format('m/d/Y');
+      $dueDate = <<<XML
+        <aside class="due-date">
+          <h1>Due on $formatted</h1>
+        </aside>
+      XML;
+    }
 
     $toggleFieldName = "completed_toggle_$todoData->id";
 

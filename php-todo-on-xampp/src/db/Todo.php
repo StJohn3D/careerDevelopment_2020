@@ -117,6 +117,35 @@ class Todo {
   
     return $success;
   }
+
+  public static function edit($todoId, $title, $description, $dueDate) {
+    $todoDb = todo_db_connect();
+
+    $descriptionOrNull = (isset($description) && $description !== '') ? "\"$description\"" : 'NULL';
+
+    $dateValue = 'NULL';
+    if (isset($dueDate) && $dueDate !== '') {
+      $dateTime = new DateTime($dueDate);
+      $formatted = $dateTime->format("Y-m-d H:i:s");
+      $dateValue = "\"$formatted\"";
+    }
+
+
+    $query = "UPDATE todo
+      SET
+        todo_title = \"$title\",
+        todo_description = $descriptionOrNull,
+        todo_due_date = $dateValue
+      WHERE todo_id = $todoId;
+    ";
+  
+    $success = $todoDb->query($query);
+  
+    /* close connection */
+    $todoDb->close();
+  
+    return $success;
+  }
 }
 
 ?>

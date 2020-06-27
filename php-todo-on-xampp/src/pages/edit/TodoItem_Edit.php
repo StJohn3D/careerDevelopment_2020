@@ -1,57 +1,75 @@
 <?php
 require_once('./db/Todo.php');
 require_once('./lib/fieldHelpers.php');
-// require_once('./pages/create/create-formValidators.php');
+require_once('todo-formValidators.php');
 
 class TodoItem_Edit {
   public static function render($todoData, $todoListId) {
-    // $title = getFieldValue('todo_list_title', $todoListData->title);
-    // $description = getFieldValue('todo_list_description', $todoListData->description);
+    $title = getFieldValue('todo_title', $todoData->title);
+    $description = getFieldValue('todo_description', $todoData->description);
 
-    // $titleState = validateTitle($title);
-    // $descriptionState = validateDescription($description);
+    $dataDueDate = $todoData->dueDate;
+    if ($dataDueDate !== null) {
+      $dateTime = new DateTime($dataDueDate);
+      $formatted = $dateTime->format('Y-m-d');
+      $dataDueDate = $formatted;
+    }
+    $dueDate = getFieldValue('todo_due_date', $dataDueDate);
 
-    // $formIsValid =
-    //   $titleState->valid &&
-    //   $descriptionState->valid
-    // ;
+    $titleState = validateTodoTitle($title);
+    $descriptionState = validateTodoDescription($description);
+    $dueDateState = validateTodoDueDate($dueDate);
 
-    // if (isset($_POST['submit']) && $formIsValid) {
-    //   $todoListId = TodoList::edit($todoListData->id, $title, $description);
+    $formIsValid =
+      $titleState->valid &&
+      $descriptionState->valid &&
+      $dueDateState->valid
+    ;
 
-    //   header('Location: '.$uri."/todoapp/edit.php?id=$todoListData->id");
-    //   exit;
-    // }
+    if (isset($_POST['submit']) && $formIsValid) {
+      if ($todoData->id === null) {
+        // TODO Create Logic here
+      } else {
+        $success = Todo::edit($todoData->id, $title, $description, $dueDate);
+      }
 
-    // $titleErrorMessage = $titleState->valid ? "" : <<<XML
-    //   <b>$titleState->errorMessage</b>
-    // XML;
+      header('Location: '.$uri."/todoapp/edit.php?id=$todoListId");
+      exit;
+    }
 
-    // $descriptionErrorMessage = $descriptionState->valid ? "" : <<<XML
-    //   <b>$descriptionState->errorMessage</b>
-    // XML;
+    $titleErrorMessage = $titleState->valid ? "" : <<<XML
+      <b>$titleState->errorMessage</b>
+    XML;
+
+    $descriptionErrorMessage = $descriptionState->valid ? "" : <<<XML
+      <b>$descriptionState->errorMessage</b>
+    XML;
+
+    $dueDateErrorMessage = $dueDateState->valid ? "" : <<<XML
+      <b>$dueDateState->errorMessage</b>
+    XML;
 
     return <<<XML
       <article className="todo_card" style="border: 1px solid; padding: 16px;">
         <form method="post">
           <div class="form-control">
-            <label for="todo_title_$todoData->id">Title</label>
-            <input type="text" name="todo_title" id="todo_title_$todoData->id"
+            <label for="todo_title">Title</label>
+            <input type="text" name="todo_title" id="todo_title"
               required aria-required="true" minlength="4" maxlength="55"
-              value="$todoData->title"
+              value="$title"
             />
           </div>
           <div class="form-control">
-            <label for="todo_description_$todoData->id">Description</label>
-            <textarea name="todo_description" id="todo_description_$todoData->id"
+            <label for="todo_description">Description</label>
+            <textarea name="todo_description" id="todo_description"
               aria-required="false" maxlength="256"
-            />$todoData->description</textarea>
+            />$description</textarea>
           </div>
           <div class="form-control">
-            <label for="todo_due_date_$todoData->id">Due Date</label>
-            <input type="date" name="todo_due_date" id="todo_due_date_$todoData->id"
+            <label for="todo_due_date">Due Date $dueDateErrorMessage</label>
+            <input type="date" name="todo_due_date" id="todo_due_date"
               aria-required="false" maxlength="256"
-              value="$todoData->dueDate"
+              value="$dueDate"
             />
           </div>
           <a class="cancel-icon" href="/todoapp/edit.php?id=$todoListId">Cancel</a>

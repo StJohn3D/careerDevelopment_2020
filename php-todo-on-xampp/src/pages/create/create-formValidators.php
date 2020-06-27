@@ -1,6 +1,5 @@
 <?php
 require_once('./lib/fieldValidations.php');
-require_once('./db/Person.php');
 
 function validateTitle($value) {
   return fieldValidator($value, [
