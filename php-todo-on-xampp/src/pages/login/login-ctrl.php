@@ -24,4 +24,12 @@ if (isset($_POST['submit']) && $formIsValid) {
     $invalidLogin = TRUE;
   }
 }
+
+if (!isset($_POST['submit'])) {
+  // Don't show error messages or mark required fields as invalid until after the user clicks submit
+  $userNameOrEmailState->valid = true;
+  $userNameOrEmailState->errorMessage = "";
+  $passwordState->valid = true;
+  $passwordState->errorMessage = "";
+}
 ?>
