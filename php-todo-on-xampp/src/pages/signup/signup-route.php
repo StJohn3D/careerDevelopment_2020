@@ -3,7 +3,7 @@
   require_once('./components/Page.php');
 
   $headerContent = <<<XML
-    <h1>Already a member?</h1>
+    <label>Already a member?</label>
     <a class="btn btn--light" href="/todoapp/login.php">Login In</a>
   XML;
 
