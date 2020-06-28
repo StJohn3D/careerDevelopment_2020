@@ -41,42 +41,6 @@ body {
   margin-left: 1rem;
 }
 
-.btn {
-  cursor: pointer;
-  display: inline-block;
-  text-decoration: none;
-  font-weight: bold;
-  color: black;
-  padding: 0.5em 1em;
-  border: 2px solid var(--deep-blue);
-  border-radius: 2rem;
-  transition: all 0.25s ease-out;
-}
-.btn:hover {
-  transform: scale(1.25);
-  border-color: var(--light-blue);
-}
-.btn:focus {
-  border-color: var(--deep-blue);
-  outline: none;
-}
-
-.btn--primary {
-  background-color: var(--deep-blue);
-  color: white;
-}
-.btn--primary:focus {
-  background-color: var(--light-blue);
-}
-
-.btn--light {
-  color: white;
-  border-color: var(--light-blue);
-}
-.btn--light:focus {
-  color: var(--light-blue);
-}
-
 .main {
   padding: 1rem;
 }
@@ -88,4 +52,52 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 4rem;
+}
+
+input {
+  border: 2px solid var(--light-blue);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}
+input:active, input:focus {
+  outline: none;
+  border-color: var(--deep-blue);
+}
+
+.btn {
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  padding: 0.5em 1em;
+  border: 1px solid var(--deep-blue);
+  border-radius: 2rem;
+  transition: all 0.25s ease-out;
+}
+.btn:hover {
+  border-color: var(--light-blue);
+  transform: scale(1.05);
+  border-right-width: 3px;
+  border-left-width: 3px;
+}
+.btn:focus {
+  transform: scale(1.20);
+  outline: none;
+}
+
+.btn--primary {
+  background-color: var(--deep-blue);
+  color: white;
+}
+.btn--primary:focus {
+  border-color: var(--light-blue);
+}
+
+.btn--light {
+  color: white;
+  border-color: var(--light-blue);
+}
+.btn--light:focus {
+  /* color: var(--light-blue); */
 }
