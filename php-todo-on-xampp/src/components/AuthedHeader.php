@@ -12,7 +12,7 @@ class AuthedHeader {
         <label>
           $userData->userName
         </label>
-        <input type="submit" name="logout" value="Logout" />
+        <input class="btn btn--light" type="submit" name="logout" value="Logout" />
       </form>
     XML;
   }

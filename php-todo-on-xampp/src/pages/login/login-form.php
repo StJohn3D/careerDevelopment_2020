@@ -6,7 +6,7 @@
   require_once('loginHeader.php');
 
   $invalidMessage = !$invalidLogin ? "" : <<<XML
-    <p class=\"invalid-message\">Invalid User Name or Password</p>
+    <span class="warning invalid-message"><b>Invalid User Name or Password</b></span>
   XML;
 
   $userNameErrorMessage = $userNameOrEmailState->valid ? "" : <<<XML
