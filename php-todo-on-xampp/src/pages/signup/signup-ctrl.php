@@ -35,4 +35,14 @@ if (isset($_POST['submit']) && $formIsValid) {
     exit;
   }
 }
+
+if (!isset($_POST['submit'])) {
+  // Don't show error messages or mark required fields as invalid until after the user clicks submit
+  $userNameState->valid = true;
+  $passwordState->valid = true;
+  $passwordConfirmState->valid = true;
+  $emailState->valid = true;
+  $firstNameState->valid = true;
+  $lastNameState->valid = true;
+}
 ?>
