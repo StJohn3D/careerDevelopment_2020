@@ -32,9 +32,9 @@
           value="$password"
         />
       </div>
-      <input type="submit" name="submit" value="Login"/>
+      <input class="btn btn--primary" type="submit" name="submit" value="Login"/>
     </form>
   XML;
 
-  new Page("Login", $loginHeader, $bodyContent);
+  new Page("Login", $loginHeader, $bodyContent, "", "login.css");
 ?>

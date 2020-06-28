@@ -2,13 +2,15 @@
   require_once('./components/Page.php');
 
   $bodyContent = <<<XML
-    <h1>Well this is embarrassing...</h1>
-    <section>
-      <h1>We couldn't find the requested page.</h1>
-      <p>Most likely the url is old or invalid.</p>
-      <a href="/todoapp/index.php?">Please click here to go back to the Home page.</a>
+    <section class="funny">
+      <p class="funny__text">Well this is embarrassing...</p>
     </section>
+    <article class="serious">
+      <h1 class="serious__title">We couldn't find the requested page.</h1>
+      <p class="serious__text">Most likely the url is old or invalid.</p>
+      <a class="btn btn--primary serious__cta" title="Please click here to go back to the Home page." href="/todoapp/index.php?">Home</a>
+    </article>
   XML;
   
-  new Page("404", "", $bodyContent);
+  new Page("404", "", $bodyContent, "", "404.css");
 ?>

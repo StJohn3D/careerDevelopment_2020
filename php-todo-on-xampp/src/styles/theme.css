@@ -1,0 +1,91 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-size: inherit;
+}
+
+:root {
+  --light-blue: #A7C8F2;
+  --deep-blue: #048ABF;
+  --light-green: #027368;
+  --deep-green: #025951;
+  --accent-orange: #F25116;
+}
+
+body { 
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--deep-blue);
+  padding: 1em;
+  color: white;
+}
+
+.header__title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.header__content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header__content > * + * {
+  margin-left: 1rem;
+}
+
+.btn {
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  padding: 0.5em 1em;
+  border: 2px solid var(--deep-blue);
+  border-radius: 2rem;
+  transition: all 0.25s ease-out;
+}
+.btn:hover {
+  transform: scale(1.25);
+  border-color: var(--light-blue);
+}
+.btn:focus {
+  border-color: var(--deep-blue);
+  outline: none;
+}
+
+.btn--primary {
+  background-color: var(--deep-blue);
+  color: white;
+}
+.btn--primary:focus {
+  background-color: var(--light-blue);
+}
+
+.btn--light {
+  color: white;
+  border-color: var(--light-blue);
+}
+.btn--light:focus {
+  color: var(--light-blue);
+}
+
+.main {
+  padding: 1rem;
+}
+
+.main__header {
+  margin: 1.5rem;
+  margin-left: 0;
+  color: var(--deep-blue);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 4rem;
+}

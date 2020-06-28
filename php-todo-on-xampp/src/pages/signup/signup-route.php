@@ -4,7 +4,7 @@
 
   $headerContent = <<<XML
     <h1>Already a member?</h1>
-    <a href="/todoapp/login.php">Login In</a>
+    <a class="btn btn--light" href="/todoapp/login.php">Login In</a>
   XML;
 
   $userNameErrorMessage = $userNameState->valid ? "" : <<<XML
@@ -75,7 +75,7 @@
           value="$lastName"
         />
       </div>
-      <input type="submit" name="submit" value="Sign Up"/>
+      <input class="btn btn--primary" type="submit" name="submit" value="Sign Up"/>
     </form>
   XML;
 

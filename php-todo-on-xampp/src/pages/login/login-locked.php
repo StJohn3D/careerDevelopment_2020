@@ -7,5 +7,5 @@
     <a href="#NOT-YET-IMPLEMENTED">I forgot my password</a>
   XML;
 
-  new Page("Login", $loginHeader, $bodyContent);
+  new Page("Login", $loginHeader, $bodyContent, "", "login.css");
 ?>

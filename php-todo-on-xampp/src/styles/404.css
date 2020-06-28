@@ -1,0 +1,32 @@
+.main__header {
+  text-align: center;
+  color: var(--accent-orange);
+}
+
+.funny {
+  margin: 1rem;
+  margin-bottom: 2rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.serious {
+  margin: 1rem;
+  text-align: center;
+}
+
+.serious__title {
+  font-size: 1.25rem;
+  margin: 1rem;
+  margin-bottom: .5rem;
+}
+
+.serious__text {
+  margin: 1rem;
+}
+
+.serious__cta {
+  margin-top: 2rem;
+}
