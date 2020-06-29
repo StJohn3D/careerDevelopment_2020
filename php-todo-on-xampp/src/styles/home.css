@@ -1,13 +1,16 @@
 .create-btn {
-  margin: 1rem;
+  margin-bottom: 1rem;
+}
+
+.todo_card + .todo_card {
+  margin-top: 1rem;
 }
 
 .todo_card {
   display: block;
   cursor: pointer;
-  margin: 1rem;
   padding: 1rem;
-  max-width: 700px;
+  max-width: 500px;
   background-color: var(--light-blue);
   border: 1px solid var(--light-blue);
   border-radius: 0.25em;
