@@ -87,5 +87,5 @@
     </form>
   XML;
 
-  new Page("Sign Up", $headerContent, $bodyContent);
+  new Page("Sign Up", $headerContent, $bodyContent, null);
 ?>

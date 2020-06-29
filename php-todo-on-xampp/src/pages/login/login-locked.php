@@ -13,5 +13,5 @@
     </section>
   XML;
 
-  new Page("Login", $loginHeader, $bodyContent, "", "login.css");
+  new Page("Login", $loginHeader, $bodyContent, null, "login.css");
 ?>

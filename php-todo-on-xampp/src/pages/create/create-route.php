@@ -33,5 +33,5 @@
     </form>
   XML;
 
-  new Page("Create new ToDo list", $headerContent, $bodyContent);
+  new Page("Create new ToDo list", $headerContent, $bodyContent, null);
 ?>

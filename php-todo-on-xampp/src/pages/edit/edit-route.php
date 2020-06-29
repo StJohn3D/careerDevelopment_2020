@@ -84,5 +84,5 @@
     </section>
   XML;
 
-  new Page("Edit", $headerContent, $bodyContent);
+  new Page("Edit", $headerContent, $bodyContent, null);
 ?>

@@ -38,5 +38,5 @@
     $listContent
   XML;
 
-  new Page($userTitle, $headerContent, $bodyContent);
+  new Page($userTitle, $headerContent, $bodyContent, null, "home.css");
 ?>

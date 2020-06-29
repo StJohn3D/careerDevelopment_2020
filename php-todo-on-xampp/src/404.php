@@ -12,5 +12,5 @@
     </article>
   XML;
   
-  new Page("404", "", $bodyContent, "", "404.css");
+  new Page("404", "", $bodyContent, null, "404.css");
 ?>
