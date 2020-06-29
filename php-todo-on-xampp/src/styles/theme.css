@@ -91,6 +91,9 @@ input[invalid], textarea:[invalid] {
   margin-bottom: 1rem;
 }
 
+.btn + .btn {
+  margin-left: 0.5rem;
+}
 .btn {
   cursor: pointer;
   display: inline-block;
