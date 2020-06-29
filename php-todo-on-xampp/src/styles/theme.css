@@ -59,21 +59,25 @@ body {
   font-size: 2.5rem;
 }
 
-input {
+form {
+  max-width: 400px;
+}
+
+input, textarea {
   border: 2px solid var(--light-blue);
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;
-  max-width: 320px;
+  max-width: 100%;
 }
-input:active, input:focus {
+input:active, input:focus, textarea:active, textarea:focus {
   outline: none;
   border-color: var(--deep-blue);
 }
-input:hover {
+input:hover, textarea:hover {
   border-right-width: 3px;
   border-left-width: 3px;
 }
-input[invalid] {
+input[invalid], textarea:[invalid] {
   border-color: var(--warning);
 }
 

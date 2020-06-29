@@ -22,4 +22,9 @@
       exit;
     }
   }
+
+  if (!isset($_POST['submit'])) {
+    $titleState->valid = true;
+    $descriptionState->valid = true;
+  }
   ?>
