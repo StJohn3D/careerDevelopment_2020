@@ -7,6 +7,7 @@
 :root {
   --light-blue: #A7C8F2;
   --deep-blue: #02739f;
+  --dark-blue: #124c8d;
   --light-green: #027368;
   --deep-green: #025951;
   --warning: #e31212;
@@ -92,7 +93,7 @@ input[invalid] {
   display: inline-block;
   text-decoration: none;
   font-weight: bold;
-  color: black;
+  color: var(--deep-blue);
   background-color: transparent;
   padding: 0.5em 1em;
   border: 1px solid var(--deep-blue);
@@ -100,7 +101,6 @@ input[invalid] {
   transition: all 0.25s ease-out;
 }
 .btn:hover {
-  border-color: var(--light-blue);
   transform: scale(1.05);
   border-right-width: 3px;
   border-left-width: 3px;
@@ -114,6 +114,9 @@ input[invalid] {
   background-color: var(--deep-blue);
   color: white;
 }
+.btn--primary:hover {
+  border-color: var(--light-blue);
+}
 .btn--primary:focus {
   border-color: var(--light-blue);
 }
@@ -123,7 +126,7 @@ input[invalid] {
   border-color: var(--light-blue);
 }
 .btn--light:focus {
-  /* color: var(--light-blue); */
+  border-color: var(--light-blue);
 }
 
 

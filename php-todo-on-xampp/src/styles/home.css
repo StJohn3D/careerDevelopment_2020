@@ -1,0 +1,35 @@
+.create-btn {
+  margin: 1rem;
+}
+
+.todo_card {
+  display: block;
+  cursor: pointer;
+  margin: 1rem;
+  padding: 1rem;
+  max-width: 700px;
+  background-color: var(--light-blue);
+  border: 1px solid var(--light-blue);
+  border-radius: 0.25em;
+  box-shadow: 0px 5px 10px var(--deep-blue);
+  text-decoration: none;
+  color: var(--dark-blue);
+  transition: all 0.25s ease-out;
+}
+.todo_card:hover {
+  transform: scale(1.01, 1.01);
+  box-shadow: 0px 7px 12px var(--deep-blue);
+}
+
+.todo_card:focus {
+  border: 1px solid var(--deep-blue);
+}
+
+.todo_card__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.todo_card__description {
+}

@@ -9,14 +9,13 @@
   foreach ($todoListData as $todoData) {
     $countsData = Todo::getCountsByListId($todoData->id);
     $listContent .= <<<XML
-      <article className="todo_card" style="border: 1px solid; padding: 16px;">
-        <header>
+      <a class="todo_card" title="Click to view todo list: $todoData->title" href="/todoapp/edit.php?id=$todoData->id">
+        <header class="todo_card__header">
           <h1>$todoData->title<h1>
           <aside>$countsData->numCompleted/$countsData->numTodos<aside>
         </header>
-        <p>$todoData->description</p>
-        <a href="/todoapp/edit.php?id=$todoData->id">Edit</a>
-      </article>
+        <span class="todo_card__description">$todoData->description</span>
+      </a>
     XML;
   }
 
@@ -33,8 +32,7 @@
   $userTitle .= "ToDo lists";
 
   $bodyContent = <<<XML
-    <a href="/todoapp/create.php">Create new ToDo list</a>
-    <hr/>
+    <a class="btn create-btn" title="Create new ToDo list" href="/todoapp/create.php">Create</a>
     $listContent
   XML;
 
