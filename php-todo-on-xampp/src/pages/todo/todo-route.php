@@ -47,20 +47,22 @@
   XML;
 
   $deletePrompt = !isset($_POST['delete-prompt']) ? "" : <<<XML
-    <form method="post" action="$formSubmitAddress">
-      <div class="modal">
-        <section class="modal__header">
-          <h1>Warning</h1>
-        </section>
-        <section class="modal__body">
-          <p>This is a destructive action and cannot be undone.</br>Are you sure you want to delete this ToDo list?</p>
-        </section>
-        <section class="modal__footer">
-            <input type="submit" name="delete-cancel" value="No, Cancel" />
-            <input type="submit" name="delete-confirm" value="Yes, Delete" />
-        </section>
-      </div>
-    </form>
+    <div class="modal-container">
+      <form method="post" action="$formSubmitAddress">
+        <div class="modal">
+          <section class="modal__header">
+            <h1>Warning</h1>
+          </section>
+          <section class="modal__body">
+            <p>This is a destructive action and cannot be undone.</br>Are you sure you want to delete the ToDo list:<br/><b>$todoListData->title</b>?</p>
+          </section>
+          <section class="modal__footer">
+              <input class="btn btn--primary" type="submit" name="delete-cancel" title="No, Cancel" value="Cancel" />
+              <input class="btn btn--danger" type="submit" name="delete-confirm" title="Yes, Delete" value="Delete" />
+          </section>
+        </div>
+      </form>
+    </div>
   XML;
 
   $footerContent = <<<XML

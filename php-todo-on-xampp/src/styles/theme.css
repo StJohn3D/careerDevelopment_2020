@@ -97,7 +97,7 @@ body {
 }
 
 form {
-  max-width: 400px;
+  max-width: 500px;
 }
 
 input, textarea {
@@ -170,6 +170,41 @@ input[invalid], textarea:[invalid] {
 }
 .btn--light:focus {
   border-color: var(--light-blue);
+}
+
+.btn--danger {
+  color: var(--warning);
+  border-color: var(--warning);
+}
+.btn--danger:focus {
+  background-color: var(--warning);
+  border-color: var(--warning);
+  color: white;
+}
+
+.modal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.modal__header {
+  color: var(--dark-blue);
+  margin-bottom: 1rem;
+}
+.modal__footer {
+  margin-top: 1rem;
+  text-align: right;
 }
 
 
