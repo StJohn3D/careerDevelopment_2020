@@ -1,0 +1,16 @@
+.todo-list-details--view {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.todo-list-details__description {
+  margin-right: 1rem;
+}
+
+.todos {
+  margin-top: 1rem;
+}
+
+.completed {
+  margin-top: 1rem;
+}

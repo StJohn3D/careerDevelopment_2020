@@ -72,9 +72,8 @@
 
   $bodyContent = <<<XML
     $todoListDetailsSection
-    <br/>
-    $createSection
     <hr/>
+    $createSection
     <section class="todos">
       <h1>Todo $countsData->numCompleted/$countsData->numTodos</h1>
       $todosContent
