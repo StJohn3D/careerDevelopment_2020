@@ -1,12 +1,19 @@
 <?php
 // use https://www.srihash.org/ to generate integrity hashes
 
-header_remove("Server"); //This isn't working and neither does the 'Header unset Server' directive in the .htaccess file
-
 class Page {
   public function __construct($title, $headerContent = "", $bodyContent = "", $footerContent = "", $style = "") {
     $stylesheet = "";
     if ($style !== "") $stylesheet = "<link rel=\"stylesheet\" href=\"/todoapp/styles/$style\">";
+    $year = date("Y");
+    $footerMarkup = "";
+    if ($footerContent !== null && $footerContent !== "") {
+      $footerMarkup = <<<XML
+        <div class="footer__content">
+          $footerContent
+        </div>
+      XML;
+    }
     echo <<<XML
       <!DOCTYPE html>
       <html lang="en">
@@ -27,7 +34,7 @@ class Page {
       <body>
         <header class="header">
           <section class="header__title">
-            <h1>ToDo App</h1>
+            <h1><a class="home-link" title="ToDo App home page" href="/todoapp/index.php">ToDo App</a></h1>
           </section>
           <section class="header__content">
             $headerContent
@@ -38,7 +45,10 @@ class Page {
           $bodyContent
         </main>
         <footer class="footer">
-          $footerContent
+          $footerMarkup
+          <div class="footer__copyright">
+            © $year StJohn3D™ All Rights Reserved
+          </div>
         </footer>
       </body>
       </html>

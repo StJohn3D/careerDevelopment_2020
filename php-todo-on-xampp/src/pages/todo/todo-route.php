@@ -40,13 +40,10 @@
     $completedTodosContent .= TodoItem_View::render($todoData, $todoListData->id, $editButtonsEnabled);
   }
 
-  $completionStatusAndDeleteBtn = <<<XML
-    <aside>
-      <p>$countsData->numCompleted/$countsData->numTodos</p>
-      <form method="post" action="$formSubmitAddress">
-        <input type="submit" name="delete-prompt" value="Delete"/>
-      </form>
-    </aside>
+  $deleteBtn = <<<XML
+    <form method="post" action="$formSubmitAddress">
+      <input class="btn btn--light" type="submit" name="delete-prompt" value="Delete"/>
+    </form>
   XML;
 
   $deletePrompt = !isset($_POST['delete-prompt']) ? "" : <<<XML
@@ -66,23 +63,26 @@
     </form>
   XML;
 
+  $footerContent = <<<XML
+    <a class="btn btn--light" href="/todoapp/index.php">Home</a>
+    $deleteBtn
+  XML;
+
   $bodyContent = <<<XML
-    <a class="btn" href="/todoapp/index.php">Home</a>
-    $completionStatusAndDeleteBtn
-    $deletePrompt
     $todoListDetailsSection
     <br/>
     $createSection
     <hr/>
     <section class="todos">
-      <h1>Todo</h1>
+      <h1>Todo $countsData->numCompleted/$countsData->numTodos</h1>
       $todosContent
     </section>
     <section class="completed">
-      <h1>Done</h1>
+      <h1>Done $countsData->numTodos/$countsData->numCompleted</h1>
       $completedTodosContent
     </section>
+    $deletePrompt
   XML;
 
-  new Page($todoListData->title, $headerContent, $bodyContent, null, "todo.css");
+  new Page($todoListData->title, $headerContent, $bodyContent, $footerContent, "todo.css");
 ?>
