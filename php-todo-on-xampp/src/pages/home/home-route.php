@@ -9,7 +9,7 @@
   foreach ($todoListData as $todoData) {
     $countsData = Todo::getCountsByListId($todoData->id);
     $listContent .= <<<XML
-      <a class="todo_card" title="Click to view todo list: $todoData->title" href="/todoapp/edit.php?id=$todoData->id">
+      <a class="todo_card" title="Click to view todo list: $todoData->title" href="/todoapp/todo.php?id=$todoData->id">
         <header class="todo_card__header">
           <h1>$todoData->title<h1>
           <aside>$countsData->numCompleted/$countsData->numTodos<aside>

@@ -26,7 +26,7 @@
   $countsData = Todo::getCountsByListId($todoListId);
   $todosData = Todo::getByListId($todoListId);
 
-  $formSubmitAddress = "edit.php?" . $_SERVER['QUERY_STRING'];
+  $formSubmitAddress = "todo.php?" . $_SERVER['QUERY_STRING'];
 
   if (isset($_POST['delete-confirm'])) {
     TodoList::delete($todoListId);

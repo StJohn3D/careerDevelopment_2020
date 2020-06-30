@@ -7,10 +7,10 @@ class TodoList_Details_View {
     $disabledClass = $editButtonsEnabled ? "" : " edit-icon--disabled";
 
     return <<<XML
-      <section class="todo-list-details" style="border: 1px solid; padding: 16px;">
+      <section class="todo-list-details">
         <h1 class="todo-list-details__title">$todoListData->title</h1>
         <p class="todo-list-details__description">$todoListData->description</p>
-        <a $disabledState $ariaDisabled class="edit-icon$disabledClass" href="/todoapp/edit.php?id=$todoListData->id&edit=details">Edit</a>
+        <a $disabledState $ariaDisabled class="edit-icon$disabledClass" href="/todoapp/todo.php?id=$todoListData->id&edit=details">Edit</a>
       </section>
     XML;
   }

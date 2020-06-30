@@ -33,7 +33,7 @@ class TodoItem_Edit {
         $success = Todo::edit($todoData->id, $title, $description, $dueDate);
       }
 
-      header('Location: '.$uri."/todoapp/edit.php?id=$todoListId");
+      header('Location: '.$uri."/todoapp/todo.php?id=$todoListId");
       exit;
     }
 
@@ -72,7 +72,7 @@ class TodoItem_Edit {
               value="$dueDate"
             />
           </div>
-          <a class="cancel-icon" href="/todoapp/edit.php?id=$todoListId">Cancel</a>
+          <a class="cancel-icon" href="/todoapp/todo.php?id=$todoListId">Cancel</a>
           <input type="submit" name="submit" value="Save"/>
         </form>
       </article>

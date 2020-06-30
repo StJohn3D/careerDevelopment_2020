@@ -15,7 +15,7 @@ class TodoItem_Create {
     }
 
     return <<<XML
-      <a $disabledState $ariaDisabled class="todo-create$disabledClass" href="/todoapp/edit.php?id=$todoListId&edit=new">Add new ToDo Item</a>
+      <a $disabledState $ariaDisabled class="todo-create$disabledClass" href="/todoapp/todo.php?id=$todoListId&edit=new">Add new ToDo Item</a>
     XML;
   }
 }

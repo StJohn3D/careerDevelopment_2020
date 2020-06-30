@@ -39,7 +39,7 @@ class TodoItem_View {
     $editButton = "";
     if (!$todoData->completed) {
       $editButton = <<<XML
-        <a $disabledState $ariaDisabled class="edit-icon$editIconDisabledClass" href="/todoapp/edit.php?id=$todoListId&edit=$todoData->id">Edit</a>
+        <a $disabledState $ariaDisabled class="edit-icon$editIconDisabledClass" href="/todoapp/todo.php?id=$todoListId&edit=$todoData->id">Edit</a>
       XML;
     }
     

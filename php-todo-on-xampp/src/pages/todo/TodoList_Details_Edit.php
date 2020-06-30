@@ -19,7 +19,7 @@ class TodoList_Details_Edit {
     if (isset($_POST['submit']) && $formIsValid) {
       $success = TodoList::edit($todoListData->id, $title, $description);
 
-      header('Location: '.$uri."/todoapp/edit.php?id=$todoListData->id");
+      header('Location: '.$uri."/todoapp/todo.php?id=$todoListData->id");
       exit;
     }
 
@@ -47,7 +47,7 @@ class TodoList_Details_Edit {
             aria-required="false" maxlength="256"
             />$description</textarea>
           </div>
-          <a class="cancel-icon" href="/todoapp/edit.php?id=$todoListData->id">Cancel</a>
+          <a class="cancel-icon" href="/todoapp/todo.php?id=$todoListData->id">Cancel</a>
           <input type="submit" name="submit" value="Save"/>
         </form>
       </section>

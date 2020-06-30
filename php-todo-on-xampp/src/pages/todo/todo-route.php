@@ -1,7 +1,7 @@
 <?php
-  require_once('edit-ctrl.php');
   require_once('./components/Page.php');
   require_once('./components/AuthedHeader.php');
+  require_once('todo-ctrl.php');
   require_once('TodoItem_View.php');
   require_once('TodoItem_Create.php');
 
@@ -67,7 +67,7 @@
   XML;
 
   $bodyContent = <<<XML
-    <a href="/todoapp/index.php">Home</a>
+    <a class="btn" href="/todoapp/index.php">Home</a>
     $completionStatusAndDeleteBtn
     $deletePrompt
     $todoListDetailsSection
@@ -84,5 +84,5 @@
     </section>
   XML;
 
-  new Page("Edit", $headerContent, $bodyContent, null);
+  new Page($todoListData->title, $headerContent, $bodyContent, null, "todo.css");
 ?>
