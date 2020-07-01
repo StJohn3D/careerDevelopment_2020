@@ -17,9 +17,7 @@ class TodoItem_View {
       $dateTime = new DateTime($todoData->dueDate);
       $formatted = $dateTime->format('m/d/Y');
       $dueDate = <<<XML
-        <aside class="due-date">
-          <h1>Due on $formatted</h1>
-        </aside>
+        <p>Due on $formatted</p>
       XML;
     }
 
@@ -39,28 +37,32 @@ class TodoItem_View {
     $editButton = "";
     if (!$todoData->completed) {
       $editButton = <<<XML
-        <a $disabledState $ariaDisabled class="edit-icon$editIconDisabledClass" href="/todoapp/todo.php?id=$todoListId&edit=$todoData->id">Edit</a>
+        <a $disabledState $ariaDisabled class="btn" href="/todoapp/todo.php?id=$todoListId&edit=$todoData->id">Edit</a>
       XML;
     }
     
     return <<<XML
-      <article className="todo-card" style="border: 1px solid; padding: 16px;">
-        <section class="todo-card__actions">
-          <form method="post" style="font-size: 2rem;">
+      <article class="todo-item-card">
+        <div class="grid-area--title">
+          <h1 class="todo-item-card__title">$todoData->title</h1>
+        </div>
+        <div class="grid-area--description">
+          <p class="todo-item-card__description">$todoData->description</p>
+        </div>
+        <div class="grid-area--due-date">
+          $dueDate
+        </div>
+        <div class="grid-area--toggle">
+          <form method="post">
             <input type="submit" name="$toggleFieldName" id="$toggleFieldName" class="checkbox checkbox--$toggleState" value="$toggleValue"/>
           </form>
+        </div>
+        <div class="grid-area--actions">
           $editButton
-        </section>
-        <section class="todo-card__details">
-          <h1 class="todo-card__title">$todoData->title</h1>
-          <p class="todo-card__description">$todoData->description</p>
-        </section>
-        $dueDate
-        <aside>
           <form method="post">
-            <input $disabledState $ariaDisabled type="submit" name="$deleteFieldName" id="$deleteFieldName" class="trashcan $deleteIconDisabledClass" value="delete"/>
+            <input type="submit" name="$deleteFieldName" id="$deleteFieldName" class="btn btn--danger" title="Delete todo item: $todoData->title" value="Delete"/>
           </form>
-        </aside>
+        </div>
       </article>
 
     XML;

@@ -75,11 +75,11 @@
     <hr/>
     $createSection
     <section class="todos">
-      <h1>Todo $countsData->numCompleted/$countsData->numTodos</h1>
+      <h1>ToDo</h1>
       $todosContent
     </section>
     <section class="completed">
-      <h1>Done $countsData->numTodos/$countsData->numCompleted</h1>
+      <h1>Done $countsData->numCompleted/$countsData->numTodos</h1>
       $completedTodosContent
     </section>
     $deletePrompt
