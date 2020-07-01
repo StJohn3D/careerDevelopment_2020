@@ -58,10 +58,13 @@
 .grid-area--toggle {
   grid-area: todoToggle;
   border-right: 1px solid var(--light-blue);
-  padding: 1rem;
+  padding: 0 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.grid-area--toggle .checkbox {
+  color: var(--deep-blue);
 }
 
 .grid-area--description {
@@ -72,8 +75,19 @@
 
 .grid-area--actions {
   grid-area: todoActions;
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid var(--light-blue);
+  text-align: right;
   padding: 0.5rem;
+}
+
+.todo-item-card--completed .grid-area--title, .todo-item-card--completed .grid-area--due-date {
+  background-color: var(--deep-green);
+}
+
+.todo-item-card--completed .grid-area--description {
+  background-color: var(--light-green);
+  color: white;
+}
+
+.todo-item-card--completed .grid-area--toggle .checkbox {
+  color: var(--deep-green);
 }
