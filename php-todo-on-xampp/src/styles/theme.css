@@ -30,14 +30,21 @@ body {
   grid-column-gap: 0;
 }
 
+.container {
+  max-width: 1024px;
+  margin: auto;
+}
+
 .header {
   grid-area: header;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background-color: var(--deep-blue);
   padding: 1em;
   color: white;
+}
+.header.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   white-space: nowrap;
   flex-wrap: wrap;
 }
@@ -51,6 +58,10 @@ body {
 .home-link {
   text-decoration: none;
   color: white;
+}
+.home-link:focus {
+  outline: 1px dashed var(--light-blue);
+  outline-offset: 5px;
 }
 
 .header__content {
@@ -94,10 +105,6 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 2.5rem;
-}
-
-form {
-  max-width: 500px;
 }
 
 input, textarea {

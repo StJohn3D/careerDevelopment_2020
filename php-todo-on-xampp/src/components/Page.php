@@ -33,22 +33,28 @@ class Page {
       </head>
       <body>
         <header class="header">
-          <section class="header__title">
-            <h1><a class="home-link" title="ToDo App home page" href="/todoapp/index.php">ToDo App</a></h1>
-          </section>
-          <section class="header__content">
-            $headerContent
-          </section>
+          <div class="container">
+            <section class="header__title">
+              <h1><a class="home-link" title="ToDo App home page" href="/todoapp/index.php">ToDo App</a></h1>
+            </section>
+            <section class="header__content">
+              $headerContent
+            </section>
+          </div>
         </header>
         <main class="main">
-          <h1 class="main__header">$title</h1>
-          $bodyContent
+          <div class="container">
+            <h1 class="main__header">$title</h1>
+            $bodyContent
+          <div>
         </main>
         <footer class="footer">
-          $footerMarkup
-          <div class="footer__copyright">
-            © $year StJohn3D™ All Rights Reserved
-          </div>
+          <div class="container">
+            $footerMarkup
+            <div class="footer__copyright">
+              © $year StJohn3D™ All Rights Reserved
+            </div>
+          <div>
         </footer>
       </body>
       </html>
