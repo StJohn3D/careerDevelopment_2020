@@ -3,22 +3,30 @@ require_once('./db/LoginAttempt.php');
 require_once('./db/Person.php');
 require_once('./db/Email.php');
 
+function getSetCookieSecureArgumentValue() {
+  // TODO check a config or something to see if we're running locally or in production
+  // Or figure out how to setup SSL locally
+  return FALSE;
+}
+
 class User {
   private static function accessKey($userName, $userId) {
     return "accessKeyFor-$userName-$userId";
   }
 
   private static function setCookies($userName, $userId) {
+    $forceHttpsCookies = getSetCookieSecureArgumentValue();
     $encryptedAccessKey = password_hash(User::accessKey($userName, $userId), PASSWORD_DEFAULT);
     $timeToExpire = time() + (60 * 60); //60 seconds * 60 minutes = 1 hour
-    setcookie("userId", $userId, $timeToExpire, "/", "", 0);
-    setcookie("accessKey", $encryptedAccessKey, $timeToExpire, "/", "", 0);
+    setcookie("userId", $userId, $timeToExpire, "/", "", $forceHttpsCookies, TRUE);
+    setcookie("accessKey", $encryptedAccessKey, $timeToExpire, "/", "", $forceHttpsCookies, TRUE);
   }
 
   private static function clearCookies() {
+    $forceHttpsCookies = getSetCookieSecureArgumentValue();
     $timeToExpire = time() - 60; //60 seconds in the past will invalidate and remove the cookies
-    setcookie("userId", $userId, $timeToExpire, "/", "", 0);
-    setcookie("accessKey", $encryptedAccessKey, $timeToExpire, "/", "", 0);
+    setcookie("userId", $userId, $timeToExpire, "/", "", $forceHttpsCookies, TRUE);
+    setcookie("accessKey", $encryptedAccessKey, $timeToExpire, "/", "", $forceHttpsCookies, TRUE);
   }
 
   public static function logout() {

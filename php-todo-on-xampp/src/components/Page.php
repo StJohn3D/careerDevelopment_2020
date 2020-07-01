@@ -1,10 +1,12 @@
 <?php
 // use https://www.srihash.org/ to generate integrity hashes
 
+
 class Page {
   public function __construct($title, $headerContent = "", $bodyContent = "", $footerContent = "", $style = "") {
     $stylesheet = "";
-    if ($style !== "") $stylesheet = "<link rel=\"stylesheet\" href=\"/todoapp/styles/$style\">";
+    $cssCachBuster = "ver=1";
+    if ($style !== "") $stylesheet = "<link rel=\"stylesheet\" href=\"/todoapp/styles/$style?$cssCachBuster\">";
     $year = date("Y");
     $footerMarkup = "";
     if ($footerContent !== null && $footerContent !== "") {
@@ -22,7 +24,7 @@ class Page {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Create all the ToDo lists you need! Have one for groceries, shopping etc.. Easily add ToDo items and check them off when you're done!">
         <title>ToDo App - $title</title>
-        <link rel="stylesheet" href="/todoapp/styles/theme.css">
+        <link rel="stylesheet" href="/todoapp/styles/theme.css?$cssCachBuster">
         $stylesheet
         <link
           integrity="sha384-QyOIuAdNFUvnfP6FGfqShjmsibA4Sbvg0dd5LqjC40PJXlPjHjuGkDO3ySgKz95K"

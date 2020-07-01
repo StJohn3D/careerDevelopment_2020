@@ -41,7 +41,7 @@ body {
   padding: 1em;
   color: white;
 }
-.header.container {
+.header .container {
   display: flex;
   align-items: center;
   justify-content: space-between;

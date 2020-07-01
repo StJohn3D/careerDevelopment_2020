@@ -70,12 +70,13 @@
     $deleteBtn
   XML;
 
+  $numIncomplete = $countsData->numTodos - $countsData->numCompleted;
   $bodyContent = <<<XML
     $todoListDetailsSection
     <hr/>
     $createSection
     <section class="todos">
-      <h1>ToDo</h1>
+      <h1>ToDo $numIncomplete/$countsData->numTodos</h1>
       $todosContent
     </section>
     <section class="completed">

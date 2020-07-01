@@ -25,8 +25,8 @@
     "todoTitle   todoTitle         todoDueDate"
     "todoToggle  todoDescription   todoDescription"
     "todoToggle  todoActions       todoActions";
-  grid-template-rows: min-content;
-  grid-template-columns: min-content;
+  grid-template-rows: min-content auto min-content;
+  grid-template-columns: min-content auto min-content;
   grid-row-gap: 0;
   grid-column-gap: 0;
 }

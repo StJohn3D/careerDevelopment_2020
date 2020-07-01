@@ -1,1 +1,2 @@
 Header set Content-Type "text/css; charset=utf-8"
+Header set Cache-Control "max-age=31536000, immutable"
